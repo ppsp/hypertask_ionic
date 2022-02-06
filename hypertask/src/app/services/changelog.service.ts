@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ReleaseNote } from '../models/Core/release-note';
-import { AppVersion } from '@ionic-native/app-version/ngx';
 import { AlertController } from '@ionic/angular';
-import { ILocalStorageService } from '../interfaces/i-local-storage-service';
 import { TranslateService } from '@ngx-translate/core';
+import { ILocalStorageService } from '../interfaces/i-local-storage-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChangelogService {
 
-  constructor(private appVersion: AppVersion,
+  constructor(//private appVersion: AppVersion,
               private storage: ILocalStorageService,
               private alertCtrl: AlertController,
               private translate: TranslateService) { }
 
   public async showChangeLogsAndSetToViewed(): Promise<void> {
-    const currentVersion = await this.appVersion.getVersionNumber();
+    /*const currentVersion = await this.appVersion.getVersionNumber(); TODO CAPACITOR
     const shouldViewChangeLog = await this.storage.shouldViewChangeLog(currentVersion);
     if (shouldViewChangeLog === true) {
       const releaseNotes = this.getReleaseNote(currentVersion);
@@ -37,7 +36,7 @@ export class ChangelogService {
 
         await alert.present();
       }
-    }
+    }*/
   }
 
   public async showAllChangeLogs(): Promise<void> {

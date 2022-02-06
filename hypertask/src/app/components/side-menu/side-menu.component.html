@@ -1,0 +1,213 @@
+<ion-menu contentId="main-content" 
+          side="start">
+  <!--Header-->
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-grid>
+        <ion-row class="content-center">
+          <ion-col size="3">
+            <!--ion-img [src]="assets/img/round.png"></ion-img-->
+          </ion-col>
+          <!--Title-->
+          <ion-col size="6" class="content-center">
+            <ion-label color="light">
+              <ion-title>
+                {{ 'menu.lbl-title' | translate }}
+              </ion-title>
+            </ion-label>
+          </ion-col>
+          <!--Close menu button-->
+          <ion-col size="3">
+            <ion-button (click)="btnCloseMenuClick()"
+                        color="primary">
+              <ion-icon name="close"
+                        color="light"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-header>
+
+  <!--Body-->
+  <ion-content>
+    <ion-list>
+      <!--Reload from server-->
+      <ion-item [hidden]="!showRefresh || !showDevMode"
+                (click)="btnReloadFromServerClick()"
+                tappable
+                lines="none">
+        <ion-icon name="cloud-download-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-reload-from-server' | translate }}</ion-label>
+      </ion-item>
+      <!--Send data to server-->
+      <ion-item [hidden]="!showRefresh || !showDevMode"
+                (click)="btnSendDataToServerClick()"
+                tappable
+                lines="none">
+        <ion-icon name="cloud-upload-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-send-to-server' | translate }}</ion-label>
+      </ion-item>
+      <!--Resume event-->
+      <!--ion-item [hidden]="!showRefresh || !showDevMode"
+                (click)="btnResumeClick()"
+                lines="none">
+        <ion-icon name="cloud-download-outline"
+                  slot="start"></ion-icon>
+        <ion-label>Resume</ion-label>
+      </ion-item-->
+      <!--User Settings-->
+      <ion-item (click)="btnUserSettingsClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="settings-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-user-settings' | translate }}</ion-label>
+      </ion-item>
+      <!--Task Groups-->
+      <ion-item (click)="btnTaskGroupsClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="layers-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-groups' | translate }}</ion-label>
+      </ion-item>
+      <!--Notes-->
+      <ion-item (click)="btnNoteClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="pencil-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-notes' | translate }}</ion-label>
+      </ion-item>
+      <!--Achievements-->
+      <!--ion-item lines="none">
+        <ion-icon name="trophy-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-achievements' | translate }}</ion-label>
+      </ion-item-->
+      <!--Select new tasks-->
+      <ion-item (click)="btnSelectNewTasksClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="library-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-select-new-tasks' | translate }}</ion-label>
+      </ion-item>
+      <!--Check for update-->
+      <ion-item *ngIf="showCheckForUpdateBtn"
+                (click)="btnCheckForUpdateClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="cloud-download-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-check-for-update' | translate }}</ion-label>
+      </ion-item>
+      <!--Send Feedback-->
+      <ion-item (click)="btnBugReportClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="chatbubble-ellipses-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-send-feedback' | translate }}</ion-label>
+      </ion-item>
+      <!--View changelog-->
+      <ion-item *ngIf="showViewChangelogBtn"
+            (click)="btnChangeLogClick()"
+            lines="none"
+            tappable>
+        <ion-icon name="list-outline" 
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-view-changelog' | translate }}</ion-label>
+      </ion-item>
+      <!--Walkthrough-->
+      <ion-item (click)="btnWalkthroughClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="school-outline" 
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-walkthrough' | translate }}</ion-label>
+      </ion-item>
+      <!--Privacy-->
+      <ion-item (click)="btnPrivacyClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="cloud-upload-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-privacy' | translate }}</ion-label>
+      </ion-item>
+      <!--Terms and conditions-->
+      <ion-item (click)="btnTermsClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="document-text-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-terms-and-conditions' | translate }}</ion-label>
+      </ion-item>
+      <!--Delete local database-->
+      <ion-item [hidden]="!showDevMode"
+                (click)="btnResetLocalDatabase()"
+                lines="none"
+                tappable>
+        <ion-icon name="trash-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-reset-local-database' | translate }}</ion-label>
+      </ion-item>
+      <!--Calendar-->
+      <!--ion-item *ngIf="showDevMode"
+                (click)="btnCalendarClick()"
+                lines="none">
+        <ion-icon name="calendar-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-calendar' | translate }}</ion-label>
+      </ion-item-->
+      <!--Show Unsynced Data-->
+      <ion-item *ngIf="showDevMode"
+                (click)="btnShowUnsyncedData()"
+                lines="none"
+                tappable>
+        <ion-icon name="sync-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-show-unsynced-data' | translate }}</ion-label>
+      </ion-item>
+      <!--Show Debug Logs-->
+      <ion-item [hidden]="!showDevMode"
+                (click)="btnShowDebugLogs()"
+                lines="none"
+                tappable>
+        <ion-icon name="document-text-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-show-logs' | translate }}</ion-label>
+      </ion-item>
+      <!--Road Map-->
+      <!--ion-item lines="none">
+        <ion-icon name="map-outline"
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-road-map' | translate }}</ion-label>
+      </ion-item-->
+      <!--Logout-->
+      <ion-item (click)="btnLogoutClick()"
+                lines="none"
+                tappable>
+        <ion-icon name="exit-outline" 
+                  slot="start"></ion-icon>
+        <ion-label>{{ 'menu.btn-logout' | translate }}</ion-label>
+      </ion-item>
+      <!--Version-->
+      <ion-item class="content-center" 
+                lines="none"
+                tappable>
+          <ion-label>{{ 'menu.lbl-version' | translate }} : {{ appVersionText }}</ion-label>
+      </ion-item>
+      <!--Files To Transfer-->
+      <ion-item *ngIf="showDevMode"
+                class="content-center"
+                lines="none"
+                tappable>
+        <ion-label>Dev mode</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>

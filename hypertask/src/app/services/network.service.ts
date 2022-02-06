@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Network } from '@ionic-native/network/ngx';
+//import { Network } from '@ionic-native/network/ngx';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ToastController, Platform } from '@ionic/angular';
 
@@ -22,12 +22,12 @@ export class NetworkService implements OnDestroy {
   private connectSubscription: Subscription;
   private disconnectSubscription: Subscription;
 
-  constructor(private network: Network, private toastController: ToastController, private plt: Platform) {
-    this.plt.ready().then(() => {
+  constructor(/*private network: Network, */private toastController: ToastController, private plt: Platform) {
+    /*this.plt.ready().then(() => { TODO CAPACITOR
       this.initializeNetworkEvents();
       const status =  this.network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
       this.status.next(status);
-    });
+    });*/
   }
 
   ngOnDestroy() {
@@ -36,7 +36,7 @@ export class NetworkService implements OnDestroy {
   }
 
   public initializeNetworkEvents() {
-    this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+    /*this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       if (this.status.getValue() === ConnectionStatus.Online) {
         // console.log('WE ARE OFFLINE');
         this.updateNetworkStatus(ConnectionStatus.Offline);
@@ -47,7 +47,7 @@ export class NetworkService implements OnDestroy {
         // console.log('WE ARE ONLINE');
         this.updateNetworkStatus(ConnectionStatus.Online);
       }
-    });
+    });*/
   }
 
   private async updateNetworkStatus(status: ConnectionStatus) {
