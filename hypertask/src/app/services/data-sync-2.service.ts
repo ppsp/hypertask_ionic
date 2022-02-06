@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { DataSyncServerService } from './data-sync-server-service';
 import ThreadUtils from '../shared/thread.utils';
 import { environment } from 'src/environments/environment';
-import { IDataSyncLocalService } from '../interfaces/i-data-sync-local-service';
-import { NotificationService } from './notification.service';
-import { ILogger } from '../interfaces/i-logger';
 import { CalendarTaskService } from './calendar-task.service';
 import { TaskHistoryService } from './task-history.service';
-import { IUserService } from '../interfaces/i-user-service';
 import { ApiHttpError } from '../models/Exceptions/ApiHttpError';
 import { EventService } from './event.service';
+import { ILogger } from '../interfaces/i-logger';
+import { IDataSyncLocalService } from '../interfaces/i-data-sync-local-service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +22,7 @@ export class DataSyncService2 {
 
   constructor(private localDataSync: IDataSyncLocalService,
               private serverDataSync: DataSyncServerService,
-              private notificationService: NotificationService,
+              //private notificationService: NotificationService, TODO CAPACITOR
               private logger: ILogger,
               private eventService: EventService) {
     this.eventService.on(EventService.EventIds.Resume, () => {
@@ -49,7 +47,7 @@ export class DataSyncService2 {
         if (this.ThreadTasks.length > 0) {
           const initialName = this.ThreadTasks[0].name;
           // console.log('------ PROCESSING THREAD TASK : ' + this.ThreadTasks[0].name, initialName);
-          await this.ThreadTasks[0].processTransaction(this.localDataSync, this.serverDataSync, this.notificationService, this.logger);
+          await this.ThreadTasks[0].processTransaction(this.localDataSync, this.serverDataSync, /*this.notificationService, */ this.logger);
           // console.log('++++++ THREAD TASK COMPLETED : ' + this.ThreadTasks[0].name, initialName);
           this.ThreadTasks.splice(0, 1);
         } /*else {
@@ -130,7 +128,7 @@ abstract class ThreadTask {
 
   abstract processTransaction(localDataSync: IDataSyncLocalService,
                               serverDataSync: DataSyncServerService,
-                              notificationService: NotificationService,
+                              /*notificationService: NotificationService,*/
                               logger: ILogger): Promise<boolean>;
 }
 
@@ -146,11 +144,11 @@ class NotificationThreadTask implements ThreadTask {
 
   public async processTransaction(localDataSync: IDataSyncLocalService,
                                   serverDataSync: DataSyncServerService,
-                                  notificationService: NotificationService,
+                                  /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
       console.log('NotificationThreadTask');
-      await notificationService.refreshNotifications();
+      //await notificationService.refreshNotifications(); TODO Capacitor
       return true;
     } catch (error) {
       logger.logError(error);
@@ -170,7 +168,7 @@ class LocalSyncThreadTask implements ThreadTask {
 
   public async processTransaction(localDataSync: IDataSyncLocalService,
                                   serverDataSync: DataSyncServerService,
-                                  notificationService: NotificationService,
+                                  /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
       console.log('LOCALSYNCTHREAD', localDataSync);
@@ -197,7 +195,7 @@ class ServerSyncThreadTask implements ThreadTask {
 
   public async processTransaction(localDataSync: IDataSyncLocalService,
                                   serverDataSync: DataSyncServerService,
-                                  notificationService: NotificationService,
+                                  /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
       console.log('SERVERSYNCTHREAD');
@@ -223,7 +221,7 @@ class ServerGetLatestSyncThreadTask implements ThreadTask {
 
   public async processTransaction(localDataSync: IDataSyncLocalService,
                                   serverDataSync: DataSyncServerService,
-                                  notificationService: NotificationService,
+                                  /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
       // console.log('LOCALSYNCTHREAD');
