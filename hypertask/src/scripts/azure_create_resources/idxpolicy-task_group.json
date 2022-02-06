@@ -1,0 +1,26 @@
+[
+  {
+      "key": {
+          "keys": [
+              "_id"
+          ]
+      }
+  },
+  {
+      "key": {
+          "keys": [
+              "GroupId"
+          ]
+      },
+      "options": {
+          "unique": true
+      }
+  },
+  {
+      "key": {
+          "keys": [
+              "UserId"
+          ]
+      }
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+      "key": {
+          "keys": [
+              "_id"
+          ]
+      }
+  },
+  {
+      "key": {
+          "keys": [
+              "CalendarTaskId"
+          ]
+      },
+      "options": {
+          "unique": true
+      }
+  },
+  {
+      "key": {
+          "keys": [
+              "UserId"
+          ]
+      }
+  },
+  {
+      "key": {
+          "keys": [
+              "AbsolutePosition"
+          ]
+      }
+  },
+  {
+      "key": {
+          "keys": [
+              "GroupId"
+          ]
+      }
+  }
+]

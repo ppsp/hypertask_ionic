@@ -1,0 +1,17 @@
+# RUN ON PHONE
+ionic cordova run android
+
+# REINSTALL cordova
+npm uninstall -g cordova
+npm install -g cordova@10.0.0
+
+# REINSTALL ALL PLUGINS
+ionic cordova prepare
+
+# INSTALL MISSING PACKAGES
+npm install
+
+## UNINSTALL/INSTALL PLATFORM
+ionic cordova platform remove android
+ionic cordova platform add android
+

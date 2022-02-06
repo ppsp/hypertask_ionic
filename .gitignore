@@ -1,0 +1,15 @@
+hypertask/src/scripts/ionic_deploy/secrets.json
+hypertask/src/environments/environment.ts
+hypertask/src/environments/environment.prod.ts
+hypertask/src/environments/environment.source.dev.ts
+hypertask/src/environments/environment.source.prod.ts
+hypertask/src/environments/environment.source.staging.ts
+hypertask/src/scripts/azure_create_resources/azure_create_resources_dev.ps1
+hypertask/src/scripts/azure_create_resources/azure_create_resources_prod.ps1
+hypertask/src/scripts/azure_create_resources/azure_create_resources_staging.ps1
+hypertask/src/scripts/azure_create_resources/azure_create_resources.bat
+hypertask/src/scripts/azure_create_resources/azure_create_resources2.ps1
+hypertask/src/scripts/ionic_deploy/deploy_dev.ps1
+hypertask/src/scripts/ionic_deploy/deploy_prod.ps1
+hypertask/src/scripts/ionic_deploy/deploy_stage.ps1
+hypertask/src/scripts/ionic_deploy/deploy_stage2.ps1
