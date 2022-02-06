@@ -282,7 +282,7 @@ export class LocalStorageService implements ILocalStorageService {
 
     // this.logger.logDebug('getCalendarTasksFromDatabase2', LocalStorageService.CALENDAR_TASK_KEY, new Date().toISOString());
 
-    await this.storage.ready;
+    //await this.storage.ready;
 
     // this.logger.logDebug('isReady', LocalStorageService.CALENDAR_TASK_KEY, new Date().toISOString());
 
@@ -299,7 +299,7 @@ export class LocalStorageService implements ILocalStorageService {
 
   private async setCalendarTasksToDatabase(tasks: DTOCalendarTask[]): Promise<void> {
     // this.logger.logDebug('setSetCalendarTasksToDatabase');
-    await this.storage.ready;
+    //await this.storage.ready;
     await this.storage.set(LocalStorageService.CALENDAR_TASK_KEY, tasks);
     return;
   }
@@ -589,7 +589,7 @@ export class LocalStorageService implements ILocalStorageService {
   }
 
   public async shouldViewChangeLog(currentVersion: string): Promise<boolean> {
-    await this.storage.ready;
+    //await this.storage.ready;
     const lastReadVersion = await this.storage.get(LocalStorageService.LAST_READ_CHANGELOG_VERSION_KEY);
 
     if (lastReadVersion != null) {
@@ -735,7 +735,7 @@ export class LocalStorageService implements ILocalStorageService {
 
     // this.logger.logDebug('getCalendarTasksFromDatabase2', LocalStorageService.CALENDAR_TASK_KEY, new Date().toISOString());
 
-    await this.storage.ready;
+    //await this.storage.ready;
 
     // this.logger.logDebug('isReady', LocalStorageService.CALENDAR_TASK_KEY, new Date().toISOString());
 
@@ -796,7 +796,7 @@ export class LocalStorageService implements ILocalStorageService {
 
   private async setGroupsToDatabase(groups: DTOTaskGroup[]): Promise<void> {
     // console.log('setGroupsToDatabase', groups);
-    await this.storage.ready;
+    //await this.storage.ready;
     await this.storage.set(LocalStorageService.GROUPS_KEY, groups);
     return;
   }

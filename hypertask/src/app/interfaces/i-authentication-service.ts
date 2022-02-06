@@ -1,10 +1,11 @@
 import { Observable } from 'rxjs';
+import { User } from '../models/Core/user';
 
 export abstract class IAuthenticationService {
   abstract currentUserIsAuthenticated(): Observable<boolean>;
   abstract logout(): Promise<void>;
   abstract getUserId(): Promise<string>;
-  abstract getUser(): Promise<firebase.User>;
+  abstract getUser(): Promise<User>;//abstract getUser(): Promise<firebase.User>;
   abstract setLoginPersistance(): Promise<void>;
   abstract getUserJsonWebToken(): Promise<string>;
   abstract signInWithEmailPassword(email: string, password: string);
