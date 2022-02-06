@@ -1,0 +1,10 @@
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-hdpi\ic_launcher_foreground.png F:\GIT\habit_tracker_ionic\resources\android\icon\hdpi-foreground.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-mdpi\ic_launcher_foreground.png F:\GIT\habit_tracker_ionic\resources\android\icon\mdpi-foreground.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-xhdpi\ic_launcher_foreground.png F:\GIT\habit_tracker_ionic\resources\android\icon\xhdpi-foreground.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-xxhdpi\ic_launcher_foreground.png F:\GIT\habit_tracker_ionic\resources\android\icon\xxhdpi-foreground.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-xxxhdpi\ic_launcher_foreground.png F:\GIT\habit_tracker_ionic\resources\android\icon\xxxhdpi-foreground.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-hdpi\ic_launcher_round.png F:\GIT\habit_tracker_ionic\resources\android\icon\hdpi-round.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-mdpi\ic_launcher_round.png F:\GIT\habit_tracker_ionic\resources\android\icon\mdpi-round.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-xhdpi\ic_launcher_round.png F:\GIT\habit_tracker_ionic\resources\android\icon\xhdpi-round.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-xxhdpi\ic_launcher_round.png F:\GIT\habit_tracker_ionic\resources\android\icon\xxhdpi-round.png /y /F
+xcopy /s F:\GIT\habit_tracker_ionic\resources\android\mipmap-xxxhdpi\ic_launcher_round.png F:\GIT\habit_tracker_ionic\resources\android\icon\xxxhdpi-round.png /y /F
