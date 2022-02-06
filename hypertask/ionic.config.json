@@ -1,0 +1,7 @@
+{
+  "name": "hypertask",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
