@@ -1,0 +1,294 @@
+<ion-card class="full-height"
+          color="light">
+  <!-- Fixed Header -->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col size="6">
+          <ion-label color="dark">
+            <ion-title>
+              {{ 'edit-task.lbl-title' | translate }}
+            </ion-title>
+          </ion-label>
+        </ion-col>
+        <!--Save Button-->
+        <ion-col size="3">
+          <ion-button (click)="btnSaveClick()"
+                      color="success">
+            <ion-icon name="save-outline"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <!-- Scrollable Body -->
+  <ion-card-content>
+    <ion-list>
+      <!--Task Name-->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label>{{ 'edit-task.lbl-task-name' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input fullWidth 
+                         fieldSize="large" 
+                         [(ngModel)]="currentTask.Name" 
+                         maxlength="200"
+                         required="true">
+              </ion-input>              
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!-- Scheduling -->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col>
+              <ion-label>{{ 'edit-task.lbl-schedule' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--Recurring vs Once-->
+          <ion-row>
+            <ion-col>
+              <ion-segment value="{{recurringValue}}"
+                           (ionChange)="recurringChanged($event)">
+                <ion-segment-button value="Recurring">
+                  <ion-label class="text-wrap">{{ 'create-task.radio-recurring' | translate }}</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="Once">
+                  <ion-label class="text-wrap">{{ 'create-task.radio-once' | translate }}</ion-label>
+                </ion-segment-button>
+              </ion-segment>
+            </ion-col>
+          </ion-row>
+          <!--Single Date vs Until Done-->
+          <ion-row [hidden]="!showSingleDay">
+            <ion-col class="grey-box">
+              <ion-radio-group (ionChange)="singleDateChanged($event)"
+                               [(ngModel)]="untilDoneCurrentValue">
+                <ion-item lines="none">
+                  <ion-label class="text-wrap">{{ 'create-task.radio-until-done' | translate }}</ion-label>
+                  <ion-radio slot="start"  value="UntilDone"></ion-radio>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label class="text-wrap">{{ 'create-task.radio-chosen-day' | translate }}</ion-label>
+                  <ion-radio slot="start" value="ChosenDayOnly"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-col>
+          </ion-row>
+          <!--Assigned Date-->
+          <ion-row [hidden]="!showAssignedDate"
+                   class="grey-box">
+            <ion-col>
+              <ion-grid>
+                <!--Title + Date Value-->
+                <ion-row>
+                  <ion-col>
+                    <ng-container class="content-center">
+                      <ion-label>{{ 'create-task.lbl-task-date' | translate }} : {{ currentAssignedDateString }}</ion-label>
+                    </ng-container>
+                  </ion-col>
+                </ion-row>
+                <!--Edit date button-->
+                <ion-row [hidden]="!showAssignedDate">
+                  <ion-col class="content-center">
+                    <ion-button (click)="btnAssignedDateClick()">                
+                      <div class="content-center-evenly full-size">
+                        <ion-icon name="create-outline"
+                                  color="light"></ion-icon>
+                        <ion-label class="color-white">{{ 'edit-task.btn-edit-group' | translate }}</ion-label>
+                      </div>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+          <!-- Required Days -->
+          <ion-row [hidden]="!showRequiredDays"
+                   class="grey-box">
+            <ion-col>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-label>{{ 'edit-task.lbl-required-days' | translate }}</ion-label>
+                  </ion-col>
+                </ion-row> 
+                <ion-row [hidden]="!showRequiredDays" 
+                          class="margin-bottom">
+                  <ion-col *ngFor="let day of daysOfWeek" 
+                            class="column">
+                    <ion-label class="no-margin-vertical">{{ day | formatDayOfWeekAbbrPipe }}</ion-label>
+                    <ion-checkbox (ionChange)="cbDayOfWeek($event, day)" 
+                                  [checked]="getCbDayOfWeekValue(day)"
+                                  class="no-margin"></ion-checkbox>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!-- Result Type -->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-label>{{ 'edit-task.lbl-result-type' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="2"></ion-col>
+            <ion-col>
+              <ion-label>{{ selectedResultTypeCaption }}</ion-label>
+            </ion-col>
+            <ion-col size="2">
+              <ion-button (click)="selectResultType()">
+                <ion-icon name="create-outline"
+                          color="light"
+                          size="small"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!--Group-->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col class="content-center">
+              <ion-label>{{ 'create-task.lbl-group' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--Current Group-->
+          <ion-row>
+            <ion-col size="2"></ion-col>
+            <ion-col>
+              <ion-label *ngIf="selectedGroup != null"
+                         class="text-wrap">{{ selectedGroup.Name }}</ion-label>
+            </ion-col>
+            <!--Edit Group-->
+            <ion-col size="2">
+              <ion-button (click)="selectGroup()">
+                <ion-icon name="create-outline"
+                          color="light"
+                          size="small"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!-- Position -->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col class="content-center">
+              <ion-label>{{ 'create-task.lbl-position' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--First-->
+          <ion-row *ngIf="selectedAfterTask == null">
+            <ion-col size="2"></ion-col>
+            <ion-col>
+              <ion-label>{{ 'edit-task.lbl-first' | translate }}</ion-label>
+            </ion-col>
+            <!--Edit Button-->
+            <ion-col size="2">
+              <ion-button (click)="selectPosition()">
+                <ion-icon name="create-outline"
+                          color="light"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <!--After First-->
+          <ion-row *ngIf="selectedAfterTask != null">
+            <ion-col size="2"></ion-col>
+            <ion-col size="8">
+              <ion-label class="text-wrap">{{ 'edit-task.lbl-after' | translate }} : {{ selectedAfterTask.Name }}</ion-label>
+            </ion-col>
+            <!--Edit Button-->
+            <ion-col size="2">
+              <ion-button (click)="selectPosition()">
+                <ion-icon name="create-outline"
+                          color="light"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!--Notifications-->
+      <ion-item lines="none"
+                class="black-box">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col>
+              <ion-label>{{ 'user-settings.lbl-notifications' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--Inactivity Notification-->
+          <ion-row>
+            <!--Description-->
+            <ion-col size="9">
+              <ion-text class="small-font margin-left">{{ 'user-settings.lbl-inactivity-reminder-description' | translate }}</ion-text>
+            </ion-col>
+            <!--Toggle-->
+            <ion-col size="3">
+              <ion-toggle [(ngModel)]="notificationEnabled"
+                          class="hidden-overflow">
+              </ion-toggle>
+            </ion-col>
+          </ion-row>
+          <!--Hour-->
+          <ion-row [hidden]="!notificationEnabled">
+            <ion-col>
+              <ion-button (click)="btnNotificationEnterTimeClick()">{{ notificationTimeValue }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!-- Delete Button -->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="btnDeleteClick()"
+                          color="danger">
+                <div class="content-center-evenly full-size">
+                  <ion-icon name="trash-outline"
+                            color="light"></ion-icon>
+                  <ion-label class="color-white">{{ 'edit-task.btn-delete' | translate }}</ion-label>
+                </div>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

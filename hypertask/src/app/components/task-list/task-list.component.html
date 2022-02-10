@@ -1,0 +1,113 @@
+<!--Fixed Header-->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-grid>
+      <ion-row>
+        <!--Menu-->
+        <ion-col size="3"
+                 id="stepMenu">
+          <ion-menu-button autoHide="false" color="dark"></ion-menu-button>
+        </ion-col>
+        <!--Previous Day Button-->
+        <ion-col size="1"
+                 id="stepChangeDate">
+          <ion-button (click)="loadPreviousDay()" 
+                      class="unzoom"
+                      color="light">
+            <ion-icon name="arrow-back-outline" color="dark"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col size="4"
+                 (click)="btnCurrentDateClick()"
+                 id="stepSelectDate"
+                 tappable>
+          <ion-title class="text-center">
+            <ion-label color="light">{{ currentDateTitle }}</ion-label>
+          </ion-title>
+        </ion-col>
+        <!--Next Day Button-->
+        <ion-col size="1">
+          <ion-button (click)="loadNextDay()" 
+                      class="unzoom"
+                      color="light"> 
+            <ion-icon name="arrow-forward-outline" color="dark"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Add Task Button-->
+        <ion-col size="3"
+                 id="stepNewTask">
+          <ion-button class="add-task-button" 
+                      (click)="addTaskButtonClick()" 
+                      color="dark">+</ion-button>
+        </ion-col>
+      </ion-row>
+      <!--Progress Bar Text-->
+      <ion-row [hidden]="showSettings">
+        <ion-col class="no-padding">
+          <ion-label class="font-small" color="light">{{ taskService.currentProgressText }}</ion-label>
+        </ion-col>
+      </ion-row>
+      <!--Progress Bar-->
+      <ion-row [hidden]="showSettings">
+        <!--Sync Icon-->
+        <ion-col size="1">
+          <ion-icon name="repeat-outline"
+                    [ngClass]="colorString"
+                    [hidden]="!devMode"></ion-icon>
+        </ion-col>
+        <!--Progress Bar-->
+        <ion-col>
+          <ion-progress-bar [value]="taskService.currentProgressValue"
+                            color="light"></ion-progress-bar>
+        </ion-col>
+        <!--Popover-->
+        <ion-col size="1" id="stepPopoverMenu">
+          <ion-icon name="ellipsis-vertical-outline"
+                    color="dark"
+                    (click)="popoverMenuClick($event)"
+                    tappable></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<!--Scrollable Body-->
+<ion-content color="medium">
+  <!--Group List-->
+  <app-group-card *ngFor="let group of taskService.allGroups"
+                  [currentGroup]="group"></app-group-card>
+</ion-content>
+
+<!--PRIORITIZE VS EXECUTE (Experiment)-->
+<ion-footer>
+  <ion-segment [(ngModel)]="currentPrioritizeVsExecute"
+               (ionChange)="prioritize($event)"
+               id="stepPrioritizeExecute">
+    <ion-segment-button value="Prioritize">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="swap-vertical-outline" color="primary"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label color="primary" class="text-wrap">Prioritize</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-segment-button>
+    <ion-segment-button value="Execute">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="checkbox-outline" color="success"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label color="success" class="text-wrap">Execute</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-segment-button>
+  </ion-segment>
+</ion-footer>

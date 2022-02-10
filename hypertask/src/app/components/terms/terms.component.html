@@ -1,0 +1,108 @@
+<ion-card class="full-height">
+  <!-- Fixed Header -->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col size="6">
+          <h2>{{ 'terms.lbl-title' | translate }}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-grid>
+      <!--Intellectual Property-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'terms.lbl-intellectual-property-title' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'terms.lbl-intellectual-property-txt' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Fees-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'terms.lbl-fees-title' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'terms.lbl-fees-txt' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Third Parties-->
+      <!--ion-row>
+        <ion-col>
+          <h3>{{ 'terms.lbl-third-party-title' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'terms.lbl-third-party-text' | translate }}</ion-text>
+        </ion-col>
+      </ion-row-->
+      <!--Data Usage-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'terms.lbl-data-usage-title' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'terms.lbl-data-usage-txt' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Updates-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'terms.lbl-updates-title' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'terms.lbl-updates-txt' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Changes to these terms and conditions-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'terms.lbl-changes-title' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'terms.lbl-changes-txt' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Contact Us-->
+      <!--ion-row>
+        <ion-col>
+          <h3>Contact Us</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>If you have any questions or suggestions about my Terms and Conditions, do not hesitate to contact me at [App contact information].</ion-text>
+        </ion-col>
+      </ion-row-->
+      <!--Last Update-->
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'terms.lbl-last-update' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

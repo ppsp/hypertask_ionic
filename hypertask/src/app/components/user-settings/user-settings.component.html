@@ -1,0 +1,171 @@
+<ion-card class="full-height"
+          color="light">
+  <!-- Fixed Header -->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col size="6">
+          <ion-label color="dark">
+            <ion-title>{{ 'user-settings.lbl-title' | translate }}</ion-title>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <!-- Scrollable Body -->
+  <ion-card-content>
+    <ion-list>
+      <!-- Language -->
+      <!-- TEMPORARILY REMOVED -->
+      <!--ion-item lines="none"
+                class="black-box">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>{{ 'menu.lbl-language' | translate }}</h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="content-center">
+              <ion-select [(ngModel)]="currentLanguage"
+                          (ionChange)="languageChanged($event)"
+                          class="dropdown">
+                <ion-select-option [value]="0">{{ 'menu.select-english' | translate }}</ion-select-option>
+                <ion-select-option [value]="1">{{ 'menu.select-french' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </ion-grid>     
+      </ion-item-->
+      <!--Privacy-->
+      <ion-item lines="none"
+                class="black-box">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col>
+              <h2>{{ 'menu.lbl-privacy' | translate }}</h2>
+            </ion-col>
+          </ion-row>
+          <!--Choose Privacy-->
+          <ion-row>
+            <ion-col class="grey-box">
+              <ion-radio-group (ionChange)="privacyChanged($event)"
+                               [(ngModel)]="syncCurrentValue"
+                               class="hidden-overflow">
+                <ion-item lines="none">
+                  <ion-label class="text-wrap small-font">{{ 'user-settings.privacy-no-sync' | translate }}</ion-label>
+                  <ion-radio slot="start"  value="NoSync"></ion-radio>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label class="text-wrap small-font">{{ 'user-settings.privacy-sync' | translate }}</ion-label>
+                  <ion-radio slot="start" value="Sync"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-col>
+          </ion-row>
+          <!--Download my data-->
+          <ion-row class="grey-box">
+            <ion-col size="9"
+                     class="align-left">
+              <ion-label class="text-wrap small-font padding-5 align-left">{{ 'user-settings.download-data-btn' | translate }}</ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button (click)="btnDownloadMyDataClick()"
+                          color="dark">
+                <ion-icon name="cloud-download-outline"
+                          color="light"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <!--Delete my data-->
+          <ion-row class="grey-box">
+            <ion-col size="9">
+              <ion-label class="text-wrap small-font padding-5">{{ 'user-settings.delete-my-data' | translate }}</ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button (click)="btnDeleteMyDataClick()"
+                          color="danger">
+                <ion-icon name="trash-outline"
+                          color="light"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!--Auto skip after 2 days, wait for feature to be requested-->
+      <!--ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9">
+              <ion-label class="text-wrap small-font">{{ 'user-settings.auto-skip-after-2-days' | translate }}</ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-toggle [(ngModel)]="autoSkipEnabled"
+                          (ionChange)="autoSkipChanged($event)"
+                          class="hidden-overflow">
+              </ion-toggle>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-->
+      <!--Choose End of day time-->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>{{ 'menu.label-end-of-day' | translate }}</h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3"></ion-col>
+            <ion-col size="6">
+              <ion-button (click)="btnEnterTimeClick()"
+                          color="primary">{{ endOfDayTime }}</ion-button>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button (click)="btnHelpClick()">?</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!--Keep vertical-->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col>
+              <ion-label>{{ 'user-settings.title-keep-portrait' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--Toggle-->
+          <ion-row>
+            <!--Description-->
+            <ion-col size="9">
+              <ion-text class="small-font margin-left">{{ 'user-settings.lbl-keep-portrait' | translate }}</ion-text>
+            </ion-col>
+            <!--Toggle-->
+            <ion-col size="3">
+              <ion-toggle [(ngModel)]="keepPortraitEnabled"
+                          (ionChange)="keepPortraitChanged($event)"
+                          class="hidden-overflow">
+              </ion-toggle>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

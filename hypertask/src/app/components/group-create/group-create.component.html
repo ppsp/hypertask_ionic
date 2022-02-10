@@ -1,0 +1,168 @@
+<ion-card class="full-height"
+          color="light">
+  <!-- Fixed Header -->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col>
+          <h2>{{ 'group-create.lbl-title' | translate }}</h2>
+        </ion-col>
+        <!--Save-->
+        <ion-col size="3">
+          <ion-button (click)="btnSaveClick()"
+                      color="success">
+            <ion-icon name="save-outline"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+    
+  <!-- Scrollable Body -->
+  <ion-card-content>
+    <ion-list class="background-light">
+      <!--Name-->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col>
+              <ion-label class="font-medium">{{ 'group-create.lbl-group-name' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--Name-->
+          <ion-row class="content-center">
+            <ion-col size="4">
+              <ion-input fullWidth 
+                         fieldSize="large" 
+                         [(ngModel)]="currentGroup.Name" 
+                         maxlength="200"
+                         minlength="1"
+                         required="true">
+              </ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!-- Default task type -->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col class="content-center">
+              <ion-label class="font-medium">{{ 'group-create.lbl-task-type-default' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--Default Task Type Radio-->
+          <ion-row>
+            <ion-col class="grey-box">
+              <ion-radio-group (ionChange)="taskTypeChanged($event)"
+                              [(ngModel)]="taskTypeValue"
+                              class="hidden-overflow">
+                <ion-item lines="none">
+                  <ion-label class="text-wrap small-font">{{ 'group-create.lbl-recurring' | translate }}</ion-label>
+                  <ion-radio slot="start"  value="Recurring"></ion-radio>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label class="text-wrap small-font">{{ 'group-create.lbl-once' | translate }}</ion-label>
+                  <ion-radio slot="start" value="Once"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!-- Position -->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid>
+          <!--Title-->
+          <ion-row>
+            <ion-col class="content-center">
+              <ion-label class="font-medium">{{ 'group-create.lbl-position' | translate }}</ion-label>
+            </ion-col>
+          </ion-row>
+          <!--First-->
+          <ion-row *ngIf="selectedAfterGroup == null">
+            <ion-col size="2"></ion-col>
+            <ion-col >
+              <ion-label class="font-medium">{{ 'group-create.lbl-first' | translate }}</ion-label>
+            </ion-col>
+            <!-- Edit Button -->
+            <ion-col size="2">
+              <ion-button (click)="btnEditPositionClick()"
+                          size="small">
+                <ion-icon name="create-outline"
+                          color="light"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <!--After First-->
+          <ion-row *ngIf="selectedAfterGroup != null">
+            <ion-col size="2"></ion-col>
+            <ion-col>
+              <ion-label class="no-overflow font-medium">{{ 'group-create.lbl-after' | translate }} : {{ selectedAfterGroup.Name }}</ion-label>
+            </ion-col>
+            <!-- Edit Button -->
+            <ion-col size="2">
+              <ion-button (click)="btnEditPositionClick()"
+                          size="small">
+                <ion-icon name="create-outline"
+                          color="light"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!--Task Selected-->
+      <ion-item class="black-box"
+                lines="none">
+        <ion-grid class="percent-width">
+          <!--Select All-->
+          <ion-row>
+            <ion-col size="3"></ion-col>
+            <ion-col size="9" class="content-center-left">
+              <ion-item class="full-width margin-left-5"
+                        lines="none">
+                  <ion-label class="no-margin-vertical">{{ 'group-create.lbl-select-all' | translate }}</ion-label>
+                  <ion-checkbox slot="start" 
+                                [(ngModel)]="selectAllChecked"
+                                class="no-margin-vertical content-center"
+                                (click)="checkAllClick()"></ion-checkbox>
+                </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Select List-->
+          <ion-row>
+            <ion-col size="3">
+              <ion-label class="font-medium">{{ 'group-create.lbl-tasks' | translate }}</ion-label>
+            </ion-col>
+            <ion-col size="9">
+              <ion-list class="max-height-fixed percent-width bordered">
+                <ion-item *ngFor="let task of selectableTasks"
+                          class="full-width"
+                          lines="none">
+                  <ion-label class="no-margin-vertical">{{ task.Name }}</ion-label>
+                  <ion-checkbox slot="start" 
+                                [(ngModel)]="task.isChecked"
+                                class="no-margin-vertical content-center"></ion-checkbox>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

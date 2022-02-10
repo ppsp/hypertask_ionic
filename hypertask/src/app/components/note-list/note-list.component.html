@@ -1,0 +1,151 @@
+<ion-card class="full-height"
+          color="light">
+  <!-- Fixed Header -->
+  <ion-card-header color="light">
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col>
+          <h2>{{ 'note-list.lbl-title' | translate }}</h2>
+        </ion-col>
+        <!--Potential future "+" Button-->
+        <ion-col size="3">
+        </ion-col>
+      </ion-row>
+      <!--Filters-->
+      <ion-row class="bordered background-white">
+        <ion-col>
+          <ion-grid>
+            <!--Title-->
+            <!--ion-row>
+              <ion-col>
+                <h2>{{ 'note-list.lbl-filters' | translate }}</h2>
+              </ion-col>
+            </ion-row-->
+            <ion-row>
+              <!--Start Date label-->
+              <ion-col size="3">
+                <ion-label>{{ 'note-list.lbl-start-date' | translate }}</ion-label>
+              </ion-col>
+              <!--Start Date Button-->
+              <ion-col>
+                <ion-button size="small"
+                            class="no-margin-vertical">{{ startDateText }}</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <!--End Date label-->
+              <ion-col size="3">
+                <ion-label>{{ 'note-list.lbl-end-date' | translate }}</ion-label>
+              </ion-col>
+              <!--End Date Button-->
+              <ion-col>
+                <ion-button size="small"
+                            class="no-margin-vertical">{{ endDateText }}</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <!--Keyword label-->
+              <ion-col size="3">
+                <ion-label>{{ 'note-list.lbl-keyword' | translate }}</ion-label>
+              </ion-col>
+              <!--Keyword textbox-->
+              <ion-col>
+                <ion-input class="no-margin-vertical bordered percent-width"
+                           [(ngModel)]="keywordSearch"
+                           (ionChange)="keywordChanged()"></ion-input>
+              </ion-col>
+            </ion-row>
+            <!--Task Filters-->
+            <ion-row>
+              <ion-col size="3">
+                <ion-label>{{ 'note-list.lbl-tasks' | translate }}</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-list class="max-height-fixed percent-width bordered">
+                  <ion-item *ngFor="let taskFilter of taskFilters"
+                            class="full-width"
+                            lines="none">
+                    <ion-label class="no-margin-vertical">{{ taskFilter.Name }}</ion-label>
+                    <ion-checkbox slot="start" 
+                                  [(ngModel)]="taskFilter.isChecked"
+                                  class="no-margin-vertical content-center"
+                                  (ionChange)="checkboxChanged()"></ion-checkbox>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+    
+  <!-- Scrollable Body -->
+  <ion-card-content class="bordered scrollable full-height background-white">
+    <!--History Card-->
+    <ion-grid *ngFor="let note of filteredNotes"
+              class="bordered note-padding">
+      <!--Line1-->
+      <ion-row>
+        <!--Task Name-->
+        <ion-col size="4">
+          <ion-label>{{ note.taskName }}</ion-label>
+        </ion-col>
+        <!--Date-->
+        <ion-col size="4">
+          <ion-label>{{ note.dateText }}</ion-label>
+        </ion-col>
+        <!--Empty column-->
+        <ion-col size="1"></ion-col>
+        <!--Task Result-->
+        <ion-col class="bordered">
+          <ion-icon *ngIf="note.showCheckedBox"
+                    name="checkbox" 
+                    class="zoom"></ion-icon>
+          <ion-label *ngIf="note.showText"
+                    style="margin:auto;" 
+                    class="font-small">{{ note.result }}</ion-label>
+          <!--Task Skipped (Displayed if skipped)-->
+          <ion-icon *ngIf="note.showBrokenHeart"
+                    class="content-center zoom"
+                    name="close-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <!--Comment-->
+      <ion-row>
+        <ion-col size="10"
+                 class="content-center-left bordered"
+                 (click)="textClick(note)" tappable>
+          <ion-text class="text-align-left">{{ note.text }}</ion-text>
+        </ion-col>
+        <ion-col size="1"
+                 class="bordered"
+                 (click)="btnDeleteCommentClick(note)" tappable>
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <!--Buttons-->
+      <ion-row *ngIf="false"
+               class="bordered">
+        <!--Edit-->
+        <ion-col>
+          <ion-button size="small"
+                      color="dark">{{ 'note-list.btn-edit' | translate }}</ion-button>
+        </ion-col>
+        <!--Delete-->
+        <ion-col>
+          <ion-button size="small"
+                      color="danger">{{ 'note-list.btn-delete' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

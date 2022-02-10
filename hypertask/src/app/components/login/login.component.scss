@@ -1,0 +1,26 @@
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-card {
+  border-color: darkgreen;
+  border-style: solid;
+  min-height: 361px;
+  min-width: 200px;
+  --background: transparent;
+}
+
+ion-card-content {
+  flex-shrink: 0;
+}
+
+ion-content {
+  --background: transparent;
+}
+
+h2 {
+  color:black;
+  font-size: large;
+}
