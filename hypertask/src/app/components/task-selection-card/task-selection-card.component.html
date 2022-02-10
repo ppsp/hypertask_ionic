@@ -1,0 +1,25 @@
+<ion-card (click)="cardClick()" tappable>
+  <ion-grid>
+    <ion-row> 
+      <!-- CheckBox to select task -->
+      <ion-col size="2" class="content-center">
+        <ion-checkbox [ngModel]="taskSelected"
+                      (ionChange)="checkChanged()"></ion-checkbox>
+      </ion-col>
+      <!-- Task Name -->
+      <ion-col class="content-center"
+               size="10">       
+        <h3 class="text-center">{{ currentTask.Name }}</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row> 
+      <!-- Description -->
+      <ion-col class="content-center"
+               size="10"
+               offset="2"
+               [hidden]="!showDescription">       
+        <ion-text>{{ currentTask.Description }}</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>

@@ -1,0 +1,77 @@
+<ion-card color="light">
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <!--Title-->
+          <h2>{{ 'welcome.lbl-title' | translate }}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <!-- Scrollable Body -->
+  <ion-card-content>
+    <ion-list>
+      <!--Choose Language-->
+      <!-- TEMPORARILY REMOVED -->
+      <!--ion-item lines="none"
+                class="black-box">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>{{ 'welcome.lbl-choose-language' | translate }}</h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="content-center">
+              <ion-select [(ngModel)]="currentLanguage"
+                          (ionChange)="languageChanged($event)"
+                          class="dropdown">
+                <ion-select-option [value]="0">{{ 'menu.select-english' | translate }}</ion-select-option>
+                <ion-select-option [value]="1">{{ 'menu.select-french' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-->
+      <!--Choose Privacy-->
+      <ion-item lines="none"
+                class="black-box">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2>{{ 'welcome.lbl-choose-privacy' | translate }}</h2>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="grey-box">
+              <ion-radio-group (ionChange)="privacyChanged($event)"
+                              [(ngModel)]="syncCurrentValue">
+                <ion-item lines="none">
+                  <ion-label class="text-wrap">{{ 'user-settings.privacy-no-sync' | translate }}</ion-label>
+                  <ion-radio slot="start"  value="NoSync"></ion-radio>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label class="text-wrap">{{ 'user-settings.privacy-sync' | translate }}</ion-label>
+                  <ion-radio slot="start" value="Sync"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!--Next button-->
+      <ion-item lines="none"
+                color="light">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="btnNextClick()">{{ 'welcome.btn-next' | translate }}</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

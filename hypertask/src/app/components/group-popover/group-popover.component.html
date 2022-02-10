@@ -1,0 +1,63 @@
+
+<ion-grid>
+  <!--Create Task-->
+  <ion-row>
+    <ion-col class="content-center">
+      <ion-button (click)="btnCreateTaskClick()"
+                  color="dark"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="add-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'group-popover.btn-add-task' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Edit Group-->
+  <ion-row>
+    <ion-col class="content-center">
+      <ion-button (click)="btnEditGroupClick()"
+                  color="dark"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="create-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'group-popover.btn-edit-group' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Skip All-->
+  <ion-row [hidden]="!skipAllBtnShown">
+    <ion-col class="content-center">
+      <ion-button (click)="btnSkipAllClick()"
+                  color="primary"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="close-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'group-popover.btn-skip-all' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Postpone All-->
+  <ion-row [hidden]="!postponeAllBtnShown">
+    <ion-col class="content-center">
+      <ion-button (click)="btnPostponeAllClick()"
+                  color="primary"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="arrow-redo-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'group-popover.btn-postpone-all' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

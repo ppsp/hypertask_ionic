@@ -20,7 +20,7 @@ export class AuthenticationService implements IAuthenticationService {
         return false;
       }
     }));*/
-    return false;
+    return;
   }
 
   public logout(): Promise<void> {
@@ -37,7 +37,7 @@ export class AuthenticationService implements IAuthenticationService {
     }
   }
 
-  public getUser(): Promise<firebase.User> {
+  public getUser(): Promise</*firebase.User*/any> { //todo capacitor
     //return this.auth.authState.pipe(first()).toPromise();
     return null;
   }
