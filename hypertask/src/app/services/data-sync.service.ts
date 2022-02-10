@@ -3,7 +3,7 @@ import { DataSyncServerService } from './data-sync-server-service';
 import ThreadUtils from '../shared/thread.utils';
 import { environment } from 'src/environments/environment';
 import { IDataSyncLocalService } from '../interfaces/i-data-sync-local-service';
-import { NotificationService } from './notification.service';
+//import { NotificationService } from './notification.service';
 import { ILogger } from '../interfaces/i-logger';
 import DateUtils from '../shared/date-utils';
 import { CalendarTaskService } from './calendar-task.service';
@@ -26,7 +26,7 @@ export class DataSyncService {
 
   constructor(private localDataSync: IDataSyncLocalService,
               private serverDataSync: DataSyncServerService,
-              private notificationService: NotificationService,
+              //private notificationService: NotificationService,
               private logger: ILogger,
               private calendarTaskService: CalendarTaskService,
               private historyService: TaskHistoryService,
@@ -58,7 +58,7 @@ export class DataSyncService {
         // console.log('CHECKFORSINC3');
 
         await this.localDataSync.processQueue();
-        await this.notificationService.refreshNotifications();
+        //await this.notificationService.refreshNotifications(); // TODO CAPACITOR
         // await this.processAutoSkip();
       } catch (error) {
 
