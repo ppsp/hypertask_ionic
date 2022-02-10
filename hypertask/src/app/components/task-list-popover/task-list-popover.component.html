@@ -1,0 +1,18 @@
+
+<ion-grid>
+  <!--Skip All-->
+  <ion-row [hidden]="!skipAllBtnShown">
+    <ion-col class="content-center">
+      <ion-button (click)="btnSkipAllClick()"
+                  color="primary"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="close-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'group-popover.btn-skip-all' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

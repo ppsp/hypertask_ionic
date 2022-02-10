@@ -1,0 +1,93 @@
+
+<ion-grid>
+  <!--Edit-->
+  <ion-row>
+    <ion-col class="content-center">
+      <ion-button (click)="btnEditTaskClick()"
+                  color="dark"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="create-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'task-card-popover.btn-edit' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Stats-->
+  <ion-row [hidden]="!viewModel.showBtnStats">
+    <ion-col class="content-center">
+      <ion-button (click)="btnShowStatsClick()"
+                  color="dark"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="bar-chart-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'task-card-popover.btn-stats' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Postpone-->
+  <!--ion-row [hidden]="!viewModel.showPostponeBtn">
+    <ion-col class="content-center">
+      <ion-button (click)="btnPostponeClick()"
+                  color="primary"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="arrow-redo-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'task-card-popover.btn-postpone' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row-->
+  <!--Note-->
+  <ion-row [hidden]="!viewModel.showBtnNote">
+    <ion-col class="content-center">
+      <ion-button (click)="btnAddNoteClick()"
+                  color="primary"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="pencil-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'task-card-popover.btn-add-note' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Void Result-->
+  <ion-row [hidden]="!viewModel.showBtnVoid">
+    <ion-col class="content-center">
+      <ion-button (click)="btnVoidResultClick()"
+                  color="danger"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="trash-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'task-card-popover.btn-void-result' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Resume Timer-->
+  <ion-row [hidden]="!viewModel.showBtnResumeTimer">
+    <ion-col class="content-center">
+      <ion-button (click)="btnResumeTimerClick()"
+                  color="success"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="play-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'task-card-popover.btn-resume-timer' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

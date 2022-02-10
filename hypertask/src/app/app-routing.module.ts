@@ -1,21 +1,26 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { TermsComponent } from './components/terms/terms.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'task-list',
     pathMatch: 'full'
   },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  }
+  { path: 'task-list', component: TaskListComponent, canActivate: [AuthGuard] },
+  { path: 'terms', component: TermsComponent },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })

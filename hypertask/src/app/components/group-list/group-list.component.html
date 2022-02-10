@@ -1,0 +1,43 @@
+<ion-card class="full-height modal-card"
+          color="light">
+  <!-- Fixed Header -->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col>
+          <ion-label color="light">
+            <ion-title>{{ 'group-list.lbl-title' | translate }}</ion-title>
+          </ion-label>
+        </ion-col>
+        <!--Add Group "+" Button-->
+        <ion-col size="3">
+          <ion-button class="add-task-button" 
+                      (click)="addGroupButtonClick()" 
+                      color="dark">+</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+    
+  <!-- Scrollable Body -->
+  <ion-card-content class="bordered scrollable full-height">
+    <ion-card *ngFor="let group of calendarTaskService.allGroups"
+              [hidden]="group.Void === true"
+              color="dark"
+              (click)="btnGroupHeaderClick(group)" tappable>
+      <ion-card-header>
+        <ion-label>
+          <ion-title class="text-center color-light">{{ group.Name }} ({{ group.Tasks.length }})</ion-title>
+        </ion-label>
+      </ion-card-header>
+    </ion-card>
+  </ion-card-content>
+</ion-card>

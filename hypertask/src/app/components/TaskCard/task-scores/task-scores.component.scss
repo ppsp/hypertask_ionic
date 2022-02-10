@@ -1,0 +1,63 @@
+// TODO: Remove duplicate code
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.space-evenly {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.bordered {
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2px;
+  margin: 2px;
+}
+
+.font-medium {
+  font-size: medium;
+}
+
+.font-large {
+  font-size: large;
+}
+
+.font-small {
+ font-size: small;
+}
+
+.font-xsmall {
+  font-size: x-small;
+}
+
+.zoom {
+  zoom: 1.7;
+}
+
+.no-padding-left-right {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.minicard {
+  min-width: 40px;
+}
+
+canvas {
+    width: 100% !important;
+}

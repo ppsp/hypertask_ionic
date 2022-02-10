@@ -1,0 +1,28 @@
+<ion-card>
+  <!-- Fixed Header -->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col size="6">
+          <h2>{{ 'debug-log.lbl-title' | translate }}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let line of currentLogs">
+        <ion-text>{{ line }}</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,31 @@
+ion-card {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-card-content {
+  overflow-y: scroll;
+  max-height: 100%;
+}
+
+ion-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+}
+
+h2 {
+  color:black;
+  font-size: large;
+}
+
+.text-wrap {
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+}
+
+ion-list {
+  background: var(--ion-color-light);
+}

@@ -1,0 +1,24 @@
+
+.color-white {
+  color: white;
+}
+
+.content-center-evenly {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    margin-right: 5px;
+  }
+}
+
+.flex-item {
+  width:100%;
+}
+
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

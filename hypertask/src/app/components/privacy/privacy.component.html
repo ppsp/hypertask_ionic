@@ -1,0 +1,107 @@
+<ion-card class="full-height">
+  <!-- Fixed Header -->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3">
+          <ion-button (click)="closePopup()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col size="6">
+          <h2>{{ 'privacy.lbl-title' | translate }}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-grid>
+      <!--Data What is collected-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'privacy.lbl-question-what-collect' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-email' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-tasks' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-errors' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Data What is shared-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'privacy.lbl-question-what-share' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-what-share' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Data Where-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'privacy.lbl-question-where' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-where' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Data Protection-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'privacy.lbl-question-protected' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-protected' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Data Access-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'privacy.lbl-question-access' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-access' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Accept-->
+      <ion-row>
+        <ion-col>
+          <h3>{{ 'privacy.lbl-question-accept' | translate }}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-answer-accept' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <!--Last Update-->
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ 'privacy.lbl-last-update' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
