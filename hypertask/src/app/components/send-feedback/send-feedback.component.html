@@ -1,0 +1,134 @@
+<ion-card>
+  <!--Title-->
+  <ion-card-header>
+    <ion-grid>
+      <ion-row>
+        <!--Back Button-->
+        <ion-col size="3"
+                 class="content-center">
+          <ion-button (click)="btnCancelClick()">
+            <ion-icon name="arrow-back"
+                      color="light"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <!--Title-->
+        <ion-col size="6"
+                 class="content-center">
+          <h2 class="text-wrap text-center">{{ 'send-feedback.lbl-title' | translate }}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-grid>
+      <!--Feedback Type-->
+      <ion-row>
+        <ion-col>
+          <ion-segment (ionChange)="feedbackTypeChanged($event)"
+                      value="feedback">
+            <ion-segment-button value="feedback">
+              <ion-label class="text-wrap">{{ 'send-feedback.radio-feedback' | translate }}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="bug">
+              <ion-label class="text-wrap">{{ 'send-feedback.radio-bug' | translate }}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="support">
+              <ion-label class="text-wrap">{{ 'send-feedback.radio-support' | translate }}</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+      </ion-row>
+      <!--Bugs-->
+      <ion-row [hidden]="!showBugsTab" 
+               class="grey-box">
+        <ion-col>
+          <ion-grid>
+            <!--Bug explanation-->
+            <ion-row>
+              <ion-col>
+                <ion-label>{{ 'send-feedback.lbl-bug-explanation' | translate }}</ion-label>
+              </ion-col>
+            </ion-row>
+            <!--Bug report title-->
+            <ion-row>
+              <ion-col>
+                <ion-grid class="grey-box">
+                  <!--Title-->
+                  <ion-row>
+                    <ion-col>
+                      <ion-input placeholder="Enter your title here"
+                                 [(ngModel)]="bugReport.Title"
+                                 required="true"
+                                 autofocus="true"
+                                 maxlength="200"></ion-input>
+                    </ion-col>
+                  </ion-row>
+                  <!--Description-->
+                  <ion-row>
+                    <ion-col>
+                      <ion-input placeholder="Enter your description here"
+                                 [(ngModel)]="bugReport.Description"
+                                 maxlength="20000"></ion-input>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+            </ion-row>
+            <!--ion-row>
+              <ion-col class="content-center">
+                <ion-button>{{ 'send-feedback.upload-screenshot' | translate }}</ion-button>
+              </ion-col>
+            </ion-row-->
+            <ion-row>
+              <ion-col class="content-center">
+                <ion-button (click)="btnSendClick()">{{ 'send-feedback.btn-send' | translate }}</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+      <!--Survey-->
+      <ion-row [hidden]="!showSurveyTab"
+               class="grey-box">
+        <ion-col>
+          <ion-grid>
+            <!--Survey explanation-->
+            <ion-row>
+              <ion-col>
+                <ion-label>{{ 'send-feedback.lbl-survey' | translate }}</ion-label>
+              </ion-col>
+            </ion-row>
+            <!--Survey link-->
+            <ion-row>
+              <ion-col class="content-center">
+                <ion-button (click)="btnSurveyClick()">{{ 'send-feedback.btn-survey' | translate }}</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+      <!--Support-->
+      <ion-row [hidden]="!showSupportTab"
+               class="grey-box">
+        <ion-col>
+          <ion-grid>
+            <!--Emails-->
+            <ion-row>
+              <ion-col>
+                <ion-label>{{ 'send-feedback.lbl-support' | translate }}</ion-label>
+                <!--ion-label>Click the button below to start a chat conversation for support! Thank you for your patience, support is not 24/7, but we will get back to you as soon as possible.</ion-label-->
+              </ion-col>
+            </ion-row>
+            <!--Survey link-->
+            <ion-row>
+              <ion-col class="content-center">
+                <ion-button (click)="btnSupportClick()">{{ 'send-feedback.btn-support' | translate }}</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

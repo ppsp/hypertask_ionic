@@ -1,0 +1,83 @@
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-text>{{ 'skips-popover.msg-top' | translate: {x: daysInARow} }}</ion-text>
+    </ion-col>
+  </ion-row>
+  <!--Skip-->
+  <ion-row>
+    <ion-col class="content-center">
+      <ion-button (click)="btnYesClick()"
+                  color="primary"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="cancel-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'skips-popover.btn-yes' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Postpone-->
+  <ion-row>
+    <ion-col class="content-center">
+      <ion-button (click)="btnPostponeClick()"
+                  color="primary"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="arrow-redo-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'skips-popover.btn-postpone' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Delete-->
+  <ion-row>
+    <ion-col class="content-center">
+      <ion-button (click)="btnDeleteClick()"
+                  color="danger"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="trash-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'skips-popover.btn-delete' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--Enable notifications-->
+  <!--ion-row [hidden]="currentTask.NotificationId > 0">
+    <ion-col class="content-center">
+      <ion-button (click)="btnEnableNotificationsClick()"
+                  color="dark"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="notifications-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'skips-popover.btn-enable-notifications' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row-->
+  <!--Cancel (Do nothing)-->
+  <ion-row>
+    <ion-col class="content-center">
+      <ion-button (click)="btnCancelClick()"
+                  color="dark"
+                  size="small"
+                  class="flex-item">
+        <div class="content-center-evenly full-size">
+          <ion-icon name="cancel-outline"
+                    class="color-white"></ion-icon>
+          <ion-label class="color-white">{{ 'skips-popover.btn-cancel' | translate }}</ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

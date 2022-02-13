@@ -362,7 +362,7 @@ export class SqliteService implements ILocalStorageService {
   }
 
   public async shouldViewChangeLog(currentVersion: string): Promise<boolean> {
-    await this.storage.ready;
+    //await this.storage.ready;
     const lastReadVersion = await this.storage.get(SqliteService.LAST_READ_CHANGELOG_VERSION_KEY);
 
     if (lastReadVersion != null) {
@@ -420,7 +420,7 @@ export class SqliteService implements ILocalStorageService {
 
     try {
       // console.log('SETTING USER LOCALLY : ', user);
-      await this.storage.ready();
+      //await this.storage.ready();
       await this.storage.set(SqliteService.USER_KEY + user.UserId, user);
       return;
     } catch (error) {

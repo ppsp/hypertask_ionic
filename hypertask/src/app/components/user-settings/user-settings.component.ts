@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { IUserService } from 'src/app/interfaces/i-user-service';
 import { UserConfig } from 'src/app/models/Core/user-config';
 import { User } from 'src/app/models/Core/user';
-import { NotificationService } from 'src/app/services/notification.service';
+//import { NotificationService } from 'src/app/services/notification.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { ReportService } from 'src/app/services/report.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -42,7 +42,7 @@ export class UserSettingsComponent implements OnInit, AfterViewInit, OnDestroy {
               private modalController: ModalController,
               private platform: Platform,
               private pickerCtrl: PickerController,
-              private notificationService: NotificationService,
+              //private notificationService: NotificationService, TODO CAPACITOR
               private loading: LoadingController,
               private reportService: ReportService,
               private alertService: AlertService) { }
@@ -109,7 +109,7 @@ export class UserSettingsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public async languageChanged(event: any) {
     await this.userService.setLanguage(event.detail.value);
-    await this.notificationService.resetAllNotifications();
+    //await this.notificationService.resetAllNotifications(); TODO CAPACITOR
   }
 
   public async autoSkipChanged(event: any) {
