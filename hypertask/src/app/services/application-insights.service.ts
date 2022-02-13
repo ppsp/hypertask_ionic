@@ -8,7 +8,9 @@ import { ILogger } from '../interfaces/i-logger';
 import { UserService } from './user.service';
 import { UserConfig } from '../models/Core/user-config';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApplicationInsightsService implements ILogger, OnDestroy {
 
   private routerSubscription: Subscription;

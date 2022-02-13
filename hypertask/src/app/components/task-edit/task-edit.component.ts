@@ -20,7 +20,7 @@ import { UserConfig } from 'src/app/models/Core/user-config';
 import { TaskGroup } from 'src/app/models/Core/task-group';
 import { ResultType } from 'src/app/models/Core/result-type.enum';
 import { EventService, EventData } from 'src/app/services/event.service';
-import { NotificationService } from 'src/app/services/notification.service';
+//import { NotificationService } from 'src/app/services/notification.service';
 import { GroupCreateComponent } from '../group-create/group-create.component';
 import { ModalService } from 'src/app/services/modal.service';
 import NumberUtils from 'src/app/shared/number-utils';
@@ -98,7 +98,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     private dateService: DateService,
     private eventService: EventService,
     private pickerCtrl: PickerController,
-    private notificationService: NotificationService,
+    //private notificationService: NotificationService,
     private modalService: ModalService) { }
 
   async ngOnInit() {
@@ -233,7 +233,7 @@ export class TaskEditComponent implements OnInit, OnDestroy {
 
     if (this.notificationEnabled === false && this.currentTask.NotificationId != null) {
       // console.log('CANCELLING ALL NOTIFICATIONS');
-      await this.notificationService.cancelAllNotification(this.currentTask.NotificationId);
+      //await this.notificationService.cancelAllNotification(this.currentTask.NotificationId); TODO CAPACITOR
       this.currentTask.NotificationId = null;
       this.currentTask.NotificationTime = null;
     }
