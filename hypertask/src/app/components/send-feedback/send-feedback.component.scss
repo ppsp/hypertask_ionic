@@ -1,0 +1,24 @@
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-wrap {
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+}
+
+ion-content{
+  --background: transparent;
+}
+
+ion-card {
+  border-color: darkgreen;
+  border-style: solid;
+}
+
+ion-card {
+  overflow-y: scroll;
+  max-width: 500px;
+}

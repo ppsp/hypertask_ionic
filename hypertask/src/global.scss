@@ -24,3 +24,112 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.selectable {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.li-ionic4-datePicker {
+  .modal-wrapper {
+      height: 500px;
+      max-height: 100%;
+      width: 312px;
+  }
+}
+
+ion-footer.footer-md {
+  min-height: 75px !important;
+}
+
+app-task-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+app-send-feedback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.black-box {
+  border: solid;
+  border-width: thin;
+  border-radius: 5px;
+  border-color: black;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.grey-box {
+  border: solid;
+  border-width: thin;
+  border-radius: 5px;
+  border-color: lightgray;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.light-box {
+  border: solid;
+  border-width: thin;
+  border-radius: 5px;
+  border-color: var(--ion-color-light);
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.time-picker {
+  --max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.picker-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.picker-wrapper {
+  bottom: auto !important;
+}
+
+.full-size {
+  height: 100%;
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.item-native {
+  padding: 0px !important;
+}
+
+.item-inner {
+  padding: 0px !important; 
+}
+
+.introjs-helperLayer {
+  background-color: rgba(255,255,255, .3) !important;
+}
+
+.alert-top {
+  top: 0px !important;
+  padding-top: 100px !important;
+  position: absolute;
+}
