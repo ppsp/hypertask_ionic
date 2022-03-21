@@ -1,8 +1,7 @@
-import { Observable } from 'rxjs';
-import { User } from '../models/Core/user';
+import { User } from '@angular/fire/auth';
 
 export abstract class IAuthenticationService {
-  abstract currentUserIsAuthenticated(): Observable<boolean>;
+  abstract currentUserIsAuthenticated(): Promise<boolean>;
   abstract logout(): Promise<void>;
   abstract getUserId(): Promise<string>;
   abstract getUser(): Promise<User>;//abstract getUser(): Promise<firebase.User>;

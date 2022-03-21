@@ -75,6 +75,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
       const success = await this.userService.awaitUserReady();
       if (success === false) {
         // console.log('Unable to get user, redirecting to login');
+        console.log('logging out2');
         await this.userService.logout();
         location.reload();
       }

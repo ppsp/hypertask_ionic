@@ -1,7 +1,6 @@
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,15 +21,12 @@ import { GroupPopoverComponent } from './components/group-popover/group-popover.
 import { DebugLogComponent } from './components/debug-log/debug-log.component';
 import { GroupListComponent } from './components/group-list/group-list.component';
 import { SkipsPopoverComponent } from './components/skips-popover/skips-popover.component';
-import { SplashScreen } from '@capacitor/splash-screen';
 import { ILogger } from './interfaces/i-logger';
-import { ApplicationInsightsService } from './services/application-insights.service';
 import { IAuthenticationService } from './interfaces/i-authentication-service';
 import { AuthenticationService } from './services/authentication.service';
 import { DataSyncServerService } from './services/data-sync-server-service';
 import { DataSyncService } from './services/data-sync.service';
 import { ILocalStorageService } from './interfaces/i-local-storage-service';
-import { LocalStorageService } from './services/local-storage.service';
 import { IDataSyncLocalService } from './interfaces/i-data-sync-local-service';
 import { DataSyncLocalService } from './services/data-sync-local-service';
 import { IApiProvider } from './interfaces/i-api-provider';
@@ -64,6 +60,18 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { LocalStorageMockService } from './tests/mocks/local-storage-mock.service';
 import { MockLogger } from './tests/mocks/logger-mock.service';
 import { File } from '@ionic-native/file/ngx';
+import 'firebaseui/dist/firebaseui.css'
+import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
+import { firebase, firebaseui, FirebaseUIModule } from 'firebaseui-angular';
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR } from "@angular/fire/compat/auth";
+import { LocalStorageService } from './services/local-storage.service';
+import { Drivers } from '@ionic/storage';
+import { TimerComponent } from './components/TaskCard/timer/timer.component';
+import { TaskScoresComponent } from './components/TaskCard/task-scores/task-scores.component';
+import { TaskCreateComponent } from './components/task-create/task-create.component';
+
 //import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { AppVersion } from '@ionic-native/app-version/ngx';
 //import { BackgroundMode } from '@ionic-native/background-mode/ngx';
@@ -74,6 +82,19 @@ import { File } from '@ionic-native/file/ngx';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInOptions: [
+    // EMAIL
+    {
+      requireDisplayName: false,
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    }
+  ],
+  tosUrl: '/terms',
+  privacyPolicyUrl: '/privacy',
+  credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+};
 
 export function appInitializerFactory(translate: TranslateService, injector: Injector) {
   return () => new Promise<any>((resolve: any) => {
@@ -119,6 +140,9 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     GroupCardComponent,
     GroupListComponent,
     TaskCardPopoverComponent,
+    TimerComponent,
+    TaskCreateComponent,
+    TaskScoresComponent,
   ],
   entryComponents: [],
   imports: [
@@ -130,8 +154,14 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     Ionic4DatepickerModule,
     IonicStorageModule.forRoot({
         name: 'tasksDb',
-        driverOrder: ['sqlite', 'websql']
+        driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
     }),
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -150,7 +180,7 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     { provide: IAuthenticationService, useClass: AuthenticationService },
     DataSyncServerService,
     DataSyncService,
-    { provide: ILocalStorageService, useClass: LocalStorageMockService },
+    { provide: ILocalStorageService, useClass: LocalStorageService },
     //{ provide: ILocalStorageService, useClass: SqliteService },
     { provide: IDataSyncLocalService, useClass: DataSyncLocalService },
     { provide: IApiProvider, useClass: ApiService },
@@ -188,7 +218,8 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
         useFactory: appInitializerFactory,
         deps: [TranslateService, Injector],
         multi: true
-    }
+    },
+    //Auth
   ],
   bootstrap: [AppComponent],
 })

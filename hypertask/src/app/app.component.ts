@@ -67,7 +67,9 @@ export class AppComponent {
           });
           if (User.getConfig(user, UserConfig.KeepPortrait) === true) {
             try {
-              screen.orientation.lock('portrait');
+              if (this.platform.is('capacitor')) {
+                screen.orientation.lock('portrait');
+              }
             } catch (error) {
 
             }
