@@ -181,6 +181,7 @@ export class UserService implements IUserService {
       const result = user != null ?
                        user.UserId :
                        null;
+
       UserService.currentUserId = result;
       return result;
     }
@@ -213,7 +214,7 @@ export class UserService implements IUserService {
 
   public async saveUser(user: User): Promise<void> {
     try {
-      console.log('HHHHHHHH SAVING USER');
+      //console.log('HHHHHHHH SAVING USER');
       user.LastActivityDate = new Date();
       await this.local.setUser(DTOUser.FromUser(user), false);
       await this.api.saveUser(DTOUser.FromUser(user));
