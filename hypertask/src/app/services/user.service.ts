@@ -32,41 +32,43 @@ export class UserService implements IUserService {
 
   public async getUser(userId: string): Promise<User> {
     try {
+      //console.log('getUser', userId);
+
       if (userId == null) {
         return null;
       }
 
       if (this.local.Initialized === false) {
-        // console.log('%%%% INITIALIZING LOCAL IN GETUSER %%%%');
+        //console.log('%%%% INITIALIZING LOCAL IN GETUSER %%%%');
         await this.local.initialize(userId);
       }
 
       // try to get user from server to get latest
 
-      // console.log('GETTING USER ID : ', userId);
+      //console.log('GETTING USER ID : ', userId);
       if (UserService.currentUser != null && UserService.currentUser.UserId === userId) {
-        // console.log('got user from ram ', UserService.currentUser);
+        //console.log('got user from ram ', UserService.currentUser);
         return UserService.currentUser;
       } else {
         let dtoUser = await this.local.getUser(userId);
         let user = DTOUser.ToUser(dtoUser);
         if (user != null && user.UserId != null) {
-          // console.log('GOT USER FROM LOCAL ', user);
+          //console.log('GOT USER FROM LOCAL ', user);
           UserService.currentUser = user;
-          // console.log('GOT USER FROM LOCAL2 ', UserService.currentUser);
+          //console.log('GOT USER FROM LOCAL2 ', UserService.currentUser);
           return user;
         } else {
           dtoUser = await this.api.getUser(userId);
           user = DTOUser.ToUser(dtoUser);
-          // console.log('GetUserFromAPI', user);
+          //console.log('GetUserFromAPI', user);
 
           if (user != null && user.UserId != null) {
-            // console.log('GOT USER FROM API ', user);
+            //console.log('GOT USER FROM API ', user);
             UserService.currentUser = user;
             await this.local.setUser(DTOUser.FromUser(user), false);
             return user;
           } else {
-            // console.log('NO USER FROM API NOT LOCAL, RETURN NEW USER');
+            //console.log('NO USER FROM API NOT LOCAL, RETURN NEW USER');
             const newUser = new User();
             newUser.UserId = userId;
             newUser.IsNew = true;
@@ -137,16 +139,17 @@ export class UserService implements IUserService {
   public async getCurrentUser(): Promise<User> {
     if (UserService.currentUser == null) {
       const startDate = new Date();
-      // console.log('<> GETTING CURRENT USER');
+      //console.log('<> GETTING CURRENT USER');
       const id = UserService.currentUserId == null ? await this.auth.getUserId() : UserService.currentUserId;
       UserService.currentUserId = id;
-      // console.log('<> GOT USER ID', DateUtils.getTimeSince(startDate));
+      //console.log('<> GOT USER ID', DateUtils.getTimeSince(startDate), UserService.currentUserId);
       const user = await this.getUser(id);
-      // console.log('<> GOT USER', DateUtils.getTimeSince(startDate));
+      //console.log('<> GOT USER', DateUtils.getTimeSince(startDate));
       UserService.currentUser = user;
+      //console.log('<> GOT USER', UserService.currentUser);
       return user;
     } else {
-      // console.log('<> GETTING CURRENT USER FROM RAM');
+      //console.log('<> GETTING CURRENT USER FROM RAM');
       return UserService.currentUser;
     }
   }
@@ -154,7 +157,9 @@ export class UserService implements IUserService {
   public async awaitUserReady(waitForever?: boolean): Promise<boolean> {
     let iterations = 0;
     while (waitForever === true || iterations < 200) { // 50ms * 100 = 5000 ms = 5s
+      //console.log('awaitUserReady');
       if (UserService.currentUser == null || UserService.currentUserId == null) {
+        //console.log('currentuser ' + UserService.currentUser);
         await ThreadUtils.sleep(50);
         iterations ++;
       } else {
@@ -208,7 +213,7 @@ export class UserService implements IUserService {
 
   public async saveUser(user: User): Promise<void> {
     try {
-      // console.log('HHHHHHHH SAVING USER');
+      console.log('HHHHHHHH SAVING USER');
       user.LastActivityDate = new Date();
       await this.local.setUser(DTOUser.FromUser(user), false);
       await this.api.saveUser(DTOUser.FromUser(user));
@@ -257,6 +262,7 @@ export class UserService implements IUserService {
   }
 
   public async logout(): Promise<void> {
+    //console.log('logging out3');
     UserService.currentUser = null;
     UserService.currentUserId = null;
     await this.auth.logout();

@@ -233,17 +233,19 @@ export class UserSettingsComponent implements OnInit, AfterViewInit, OnDestroy {
   public async keepPortraitChanged(event: any) {
     // console.log('keepverticalchanged Value', event);
     try {
-      if (event.detail.checked === true) {
-        // set to portrait
-        screen.orientation.lock('portrait');
-        this.userService.setKeepPortrait(true);
-        /*this.currentCloudSyncEnabled = false;
-        await this.userService.setCloudSync(false);*/
-      } else {
-        screen.orientation.unlock();
-        this.userService.setKeepPortrait(false);
-        /*this.currentCloudSyncEnabled = true;
-        await this.userService.setCloudSync(true);*/
+      if (this.platform.is('capacitor')) {
+        if (event.detail.checked === true) {
+          // set to portrait
+          screen.orientation.lock('portrait');
+          this.userService.setKeepPortrait(true);
+          /*this.currentCloudSyncEnabled = false;
+          await this.userService.setCloudSync(false);*/
+        } else {
+          screen.orientation.unlock();
+          this.userService.setKeepPortrait(false);
+          /*this.currentCloudSyncEnabled = true;
+          await this.userService.setCloudSync(true);*/
+        }
       }
     } catch (error) {
 

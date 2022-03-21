@@ -156,7 +156,13 @@ export class LocalStorageService implements ILocalStorageService {
     LocalStorageService.TIMER_KEY = String('timer' + userId);
     LocalStorageService.GROUPS_KEY = String('group' + userId);
 
-    // console.log('Initialized Local storage');
+    try {
+      await this.storage.create();
+    } catch (error2) {
+      console.log('error creating database', error2);
+    }
+
+    console.log('Initialized Local storage');
 
     this.Initialized = true;
 
@@ -210,7 +216,7 @@ export class LocalStorageService implements ILocalStorageService {
       await this.storage.set(LocalStorageService.USER_KEY + user.UserId, user);
       return;
     } catch (error) {
-      // console.error('error');
+      console.error('error', error);
       this.logger.logError(new Error('unable to set user in local database'));
       alert('unable to set user in local database');
       return null;

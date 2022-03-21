@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
 import { ILogger } from '../interfaces/i-logger';
 import { IAuthenticationService } from '../interfaces/i-authentication-service';
+import { User } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { first } from 'rxjs/operators';
 
 @Injectable({
@@ -10,57 +10,73 @@ import { first } from 'rxjs/operators';
 })
 export class AuthenticationService implements IAuthenticationService {
 
-  constructor(private logger: ILogger) {}
+  //private isAuthenticated: boolean = false;
 
-  public currentUserIsAuthenticated(): Observable<boolean> {
-    /*return this.auth.authState.pipe(map(User => {
-      if (User) {
-        return true;
+  constructor(private logger: ILogger,
+              private auth: AngularFireAuth) {
+    /*auth.onAuthStateChanged(user => {
+      if (user) {
+        this.isAuthenticated = true;
+        console.log('USER IS SIGNED IN');
       } else {
-        return false;
+        this.isAuthenticated = false;
+        console.log('USER IS NOT SIGNED IN');
       }
-    }));*/
-    return;
+    });*/
   }
 
-  public logout(): Promise<void> {
-    //return this.auth.auth.signOut();
-    return;
+  public async currentUserIsAuthenticated(): Promise<boolean> {
+    const user = await this.auth.authState.pipe(first()).toPromise();;
+    if (user) {
+      //console.log('USER IS AUTHENTICATED');
+      return true;
+    } else {
+      //console.log('USER IS NOT AUTHENTICATED');
+      return false;
+    }
   }
 
   public async getUserId(): Promise<string> {
+    //console.log('getUserId string');
     const user = await this.getUser();
+    //console.log('getUserId got user', user);
     if (user == null) {
       return null;
     } else {
+      //console.log('RETURNING USER ID : ', user.uid);
       return user.uid;
     }
   }
 
-  public getUser(): Promise</*firebase.User*/any> { //todo capacitor
-    //return this.auth.authState.pipe(first()).toPromise();
-    return null;
+  public getUser(): Promise<User> { //todo capacitor
+    /*console.log('GETTING USER GETUSER()');
+    console.log('current user : ', this.auth.currentUser);
+    console.log('current user : ', this.auth.user);*/
+    //return this.auth.currentUser;
+    return this.auth.authState.pipe(first()).toPromise();
   }
 
   public async setLoginPersistance(): Promise<void> {
     try {
-      //await this.auth.auth.setPersistence('local');
+      //console.log('PERSISTANCE SET BEFORE');
+      await this.auth.setPersistence('local');
+      //console.log('PERSISTANCE SET AFTER');
     } catch (error) {
+      //console.log('ERROR PERSISTANCE', error)
       this.logger.logError(error);
     }
   }
 
   public async getUserJsonWebToken(): Promise<string> {
-    /*const user = await this.auth.authState.pipe(take(1)).toPromise();
-    return user.getIdToken();*/
-    return "";
+    const token = await (await this.auth.currentUser).getIdToken();
+    return token;
   }
 
   public async signInWithEmailPassword(email: string,
                                        password: string) {
     try {
-      //const response = await this.auth.auth.signInWithEmailAndPassword(email, password);
-      return;
+      const response = await this.auth.signInWithEmailAndPassword(email, password);
+      return response;
     } catch (error) {
       this.logger.logError(error);
     }
@@ -69,11 +85,16 @@ export class AuthenticationService implements IAuthenticationService {
   public async createAccount(email: string,
                              password: string): Promise<string> {
     try {
-      //const response = await this.auth.auth.createUserWithEmailAndPassword(email, password);
-      //return response.user.uid;
-      return "";
+      const response = await this.auth.createUserWithEmailAndPassword(email, password);
+      return response.user.uid;
     } catch (error) {
       this.logger.logError(error);
     }
+  }
+
+  public async logout(): Promise<void> {
+    //console.log('LOGOUT');
+    await this.auth.signOut();
+    return;
   }
 }

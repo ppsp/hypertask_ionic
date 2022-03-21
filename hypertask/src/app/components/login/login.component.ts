@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-//import { FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure } from 'firebaseui-angular';
+import { FirebaseUISignInSuccessWithAuthResult, FirebaseUISignInFailure } from 'firebaseui-angular';
 import { Router } from '@angular/router';
 import { IAuthenticationService } from 'src/app/interfaces/i-authentication-service';
 import { Language } from 'src/app/models/Core/language.enum';
@@ -8,7 +8,7 @@ import { ILogger } from 'src/app/interfaces/i-logger';
 import { IUserService } from 'src/app/interfaces/i-user-service';
 import { UserConfig } from 'src/app/models/Core/user-config';
 import { User } from 'src/app/models/Core/user';
-import { MenuController } from '@ionic/angular';
+import { MenuController, Platform } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { DataSyncServerService } from 'src/app/services/data-sync-server-service';
 import ThreadUtils from 'src/app/shared/thread.utils';
@@ -28,14 +28,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private userService: IUserService,
     private translate: TranslateService,
     private logger: ILogger,
-    private menuCtrl: MenuController) { }
+    private menuCtrl: MenuController,
+    private platform: Platform) {
+  }
 
   async ngOnInit() {
     this.menuCtrl.enable(false);
     this.showLogin = true;
-    if (this.auth.currentUserIsAuthenticated()) {
+    if (await this.auth.currentUserIsAuthenticated() === true) {
       this.redirectToTaskList();
     } else {
+      //console.log('logging out1');
       await this.userService.logout();
     }
   }
@@ -53,11 +56,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /*public successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): void { // TODO : Capacitor
+  public async successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult): Promise<void> { // TODO : Capacitor
+    //console.log('successcallback');
     this.menuCtrl.enable(true);
     this.logger.logDebug('~ Success Signin Callback', JSON.stringify(signInSuccessData), new Date().toISOString());
     this.showLogin = false;
-    this.auth.setLoginPersistance();
+    await this.auth.setLoginPersistance();
+    //console.log('persistance set');
     this.logger.logDebug('~ Login persistance set', new Date().toISOString());
     this.userService.getUserForLogin().then(user => {
       this.logger.logDebug('~ Got Current User, setting language', new Date().toISOString());
@@ -84,7 +89,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }
       if (User.getConfig(user, UserConfig.KeepPortrait) === true) {
         try {
-          screen.orientation.lock('portrait');
+          if (this.platform.is('capacitor')) {
+            screen.orientation.lock('portrait');
+          }
         } catch (error) {
 
         }
@@ -95,11 +102,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
       alert('Unable to get user from server, please try again later');
       this.redirectToLogin();
     });
-  }*/
+  }
 
-  /*public errorCallback(errorData: FirebaseUISignInFailure): void {
+  public errorCallback(errorData: FirebaseUISignInFailure): void {
     this.logger.logEvent('login failed', { key: 'errorDate', value: JSON.stringify(errorData) });
-  }*/
+  }
 
   private redirectToTaskList(): void {
     this.logger.logDebug('~ Redirecting to task list', new Date().toISOString());

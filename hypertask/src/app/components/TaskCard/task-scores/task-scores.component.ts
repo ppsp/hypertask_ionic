@@ -311,7 +311,7 @@ export class TaskScoresComponent implements OnInit, OnDestroy {
         }]
       },
       options: {
-        scales: {
+        /*scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true
@@ -320,7 +320,7 @@ export class TaskScoresComponent implements OnInit, OnDestroy {
         },
         legend: {
           display: false
-        },
+        },*/
       }
     });
   }
@@ -349,13 +349,13 @@ export class TaskScoresComponent implements OnInit, OnDestroy {
         }]
       },
       options: {
-        title: {
+        /*title: {
           display: true,
           text: myLabel,
         },
         legend: {
           display: false
-        },
+        },*/
       }
     });
   }
@@ -375,13 +375,13 @@ export class TaskScoresComponent implements OnInit, OnDestroy {
         }]
       },
       options: {
-        title: {
+        /*title: {
           display: true,
           text: this.translate.instant('task-scores.lbl-time'),
         },
         legend: {
           display: false
-        },
+        },*/
       }
     });
   }
