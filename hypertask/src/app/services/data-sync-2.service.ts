@@ -65,7 +65,7 @@ export class DataSyncService2 {
         this.logger.logDebug('Error checking for sync repeat');
         this.logger.logError(error);
       } finally {
-        await ThreadUtils.sleep(150);
+        await ThreadUtils.sleep(1500); // todo capacitor
       }
     }
   }

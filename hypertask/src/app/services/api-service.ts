@@ -14,6 +14,7 @@ import { DTOUserConfig } from '../models/DTO/dto-user-config';
 import { DTOTaskGroup } from '../models/DTO/dto-task-group';
 import { File } from '@ionic-native/file/ngx';
 import { ApiHttpError } from '../models/Exceptions/ApiHttpError';
+import { IAuthenticationService } from '../interfaces/i-authentication-service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,11 @@ export class ApiService implements IApiService {
   constructor(
     private http: HttpClient,
     private logger: ILogger,
-    private file: File) { }
+    private file: File,
+    private auth: IAuthenticationService) { }
 
   public async getHttpHeaders(): Promise<HttpHeaders> {
-    //const token = await this.auth.getUserJsonWebToken(); TODO CAPACITOR
-    const token = 'abc';
+    const token = await this.auth.getUserJsonWebToken();
     return new HttpHeaders().set('Authorization', token);
   }
 

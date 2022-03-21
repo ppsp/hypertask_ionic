@@ -7,8 +7,9 @@
         </ion-card-header>
       
         <ion-card-content>
-          <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)"
-                       (signInFailure)="errorCallback($event)"></firebase-ui>
+          <firebase-ui
+            (signInSuccessWithAuthResult)="successCallback($event)"
+            (signInFailure)="errorCallback($event)"></firebase-ui>
         </ion-card-content>
       </ion-card>
     </ion-col>
