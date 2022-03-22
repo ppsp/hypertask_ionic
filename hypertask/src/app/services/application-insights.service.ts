@@ -5,8 +5,6 @@ import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ILogger } from '../interfaces/i-logger';
-import { UserService } from './user.service';
-import { UserConfig } from '../models/Core/user-config';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +22,7 @@ export class ApplicationInsightsService implements ILogger, OnDestroy {
     }
   });
 
-  constructor(private router: Router,
-              private userService: UserService) {
+  constructor(private router: Router) {
     const insight = this.appInsights.loadAppInsights();
     this.routerSubscription = this.router.events.pipe(filter(event => event instanceof ResolveEnd)).subscribe((event: ResolveEnd) => {
       const activatedComponent = this.getActivatedComponent(event.state.root);
@@ -48,12 +45,6 @@ export class ApplicationInsightsService implements ILogger, OnDestroy {
   }
 
   public logPageView(name?: string, uri?: string): void {
-    if (this.userService == null ||
-        UserService.currentUser == null ||
-        this.userService.getConfig == null ||
-        this.userService.getConfig(UserConfig.EnableCloudSyncKey) === false) {
-      return;
-    }
     this.appInsights.trackPageView({ name, uri });
   }
 
@@ -84,11 +75,6 @@ export class ApplicationInsightsService implements ILogger, OnDestroy {
       console.clear();
     }
 
-    if (this.userService == null ||
-        this.userService.getConfig == null ||
-        this.userService.getConfig(UserConfig.EnableCloudSyncKey) !== true) {
-      return;
-    }
     const event: IEventTelemetry = {
       name, measurements, properties
     };
@@ -109,12 +95,6 @@ export class ApplicationInsightsService implements ILogger, OnDestroy {
       console.clear();
     }
 
-    if (this.userService == null ||
-        UserService.currentUser == null ||
-        this.userService.getConfig == null ||
-        this.userService.getConfig(UserConfig.EnableCloudSyncKey) === false) {
-      return;
-    }
     const exception: IExceptionTelemetry = {
       error, measurements, properties,
     };
