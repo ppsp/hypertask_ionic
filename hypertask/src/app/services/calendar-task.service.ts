@@ -15,7 +15,7 @@ import { DayOfWeek } from '../models/Core/day-of-week.enum';
 import { DateService } from './date.service';
 import { IDataSyncLocalService } from '../interfaces/i-data-sync-local-service';
 import NumberUtils from '../shared/number-utils';
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { TaskGroup } from '../models/Core/task-group';
 import { UserService } from './user.service';
 import { DTOTaskGroup } from '../models/DTO/dto-task-group';

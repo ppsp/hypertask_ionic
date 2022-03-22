@@ -71,6 +71,7 @@ import { Drivers } from '@ionic/storage';
 import { TimerComponent } from './components/TaskCard/timer/timer.component';
 import { TaskScoresComponent } from './components/TaskCard/task-scores/task-scores.component';
 import { TaskCreateComponent } from './components/task-create/task-create.component';
+import { ApplicationInsightsService } from './services/application-insights.service';
 
 //import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -175,8 +176,8 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     //StatusBar, TODO CAPACITOR
     //SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    //{ provide: ILogger, useClass: ApplicationInsightsService },
-    { provide: ILogger, useClass: MockLogger },
+    { provide: ILogger, useClass: ApplicationInsightsService },
+    //{ provide: ILogger, useClass: MockLogger },
     { provide: IAuthenticationService, useClass: AuthenticationService },
     DataSyncServerService,
     DataSyncService,

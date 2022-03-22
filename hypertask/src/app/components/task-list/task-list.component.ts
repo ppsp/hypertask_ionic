@@ -69,6 +69,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     try {
+      const dateStart = new Date();
       this.logger.logDebug('[ TASK-LIST WAITING FOR PLATFORM ]', new Date().toISOString());
       await this.platform.ready();
       this.logger.logDebug('[ TASK-LIST WAITING FOR USER ]', new Date().toISOString());
@@ -191,6 +192,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
       if (UserService.currentUser.IsNew === true) {
         await this.modalService.showWelcomeModal(WelcomeComponent);
       }
+      
       if (this.taskService.getAllTasks().length === 0) {
         await this.modalService.showTaskSelectionModal(TaskSelectionComponent);
         await this.createDemoTasks();
@@ -200,8 +202,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
       }
 
       DataSyncServerService.ApplicationLoaded = true;
-
+      let elapsed = new Date().getTime() - dateStart.getTime();
       this.logger.logDebug('[ TASK-LIST INIT COMPLETE ]', new Date().toISOString());
+      this.logger.logDebug('[[[[[[[[[[ (' + elapsed + ') ]]]]]]]]]]', new Date().toISOString());
+      
 
       // DO A SYNC TO SEND MISSING TASKS TO SERVER
       
