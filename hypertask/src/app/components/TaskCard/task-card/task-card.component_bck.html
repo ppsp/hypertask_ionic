@@ -1,0 +1,183 @@
+<!--Clickable/Expandable Card Header-->
+<ion-grid [hidden]="!viewModel.isShown">
+  <ion-row>
+    <ion-col>
+      <ion-grid class="content-center">
+        <ion-row class="full-width">
+          <!--Task position for testing only-->
+          <!--ion-col size="1"
+                   class="content-center">
+            <ion-label color="dark">{{ currentTask.AbsolutePosition }}</ion-label>
+          </ion-col-->
+          <!--Reorder-->
+          <ion-col [hidden]="!viewModel.enableDragAndDrop"
+                   class="content-center"
+                   size="2"
+                   id="stepDragAndDrop">
+            <ion-reorder class="content-center">
+              <ion-icon name="swap-vertical-outline"></ion-icon>
+            </ion-reorder>
+          </ion-col>
+          <!--Task Name-->
+          <ion-col class="content-center-left margin-left">
+            <ion-text color="dark">{{ viewModel.currentTask.Name }}</ion-text>
+          </ion-col>
+          <!--Task Result-->
+          <ion-col *ngIf="viewModel.showTaskResult" 
+                   class="content-center">
+            <!--Task Score (Displayed if done)-->
+            <ion-icon *ngIf="viewModel.showCheckedBox"
+                      name="checkbox" 
+                      class="zoom"></ion-icon>
+            <ion-label *ngIf="viewModel.showText"
+                      color="dark"
+                      style="margin:auto;" 
+                      class="font-medium">{{ viewModel.taskResult }}</ion-label>
+            <!--Task Skipped (Displayed if skipped)-->
+            <ion-icon *ngIf="viewModel.showBrokenHeart"
+                      class="content-center zoom"
+                      name="close-outline"></ion-icon>
+          </ion-col>
+          <!--Task Main Buttons-->
+          <ion-col [hidden]="!viewModel.showMainTaskButtons"
+                   class="content-center-right"
+                   id="stepActionButtons">
+            <!--Start timer-->
+            <ion-button *ngIf="viewModel.showBtnStart"
+                        (click)="btnStartClick($event)"
+                        color="success"
+                        id="stepStartTimer">
+              <ion-icon name="play-outline" color="light"></ion-icon>
+            </ion-button>
+            <!--Cancel timer-->
+            <ion-button *ngIf="viewModel.showBtnCancelTimer"
+                        (click)="btnCancelTimerClick($event)"
+                        color="dark">
+              <ion-icon name="close-outline" color="light"></ion-icon>
+            </ion-button>
+            <!--Pause timer-->
+            <ion-button *ngIf="viewModel.showBtnPause"
+                        (click)="btnPauseClick($event)"
+                        color="dark">
+              <ion-icon name="pause-outline" color="light"></ion-icon>
+            </ion-button>
+            <!--Unpause-->
+            <ion-button *ngIf="viewModel.showBtnResume"
+                        (click)="btnUnpauseClick($event)"
+                        color="success">
+              <ion-icon name="play-outline" color="light"></ion-icon>
+            </ion-button>
+            <!--Enter Time-->
+            <ion-button *ngIf="viewModel.showBtnEnterTime"
+                        (click)="btnEnterTimeClick();"
+                        color="success"
+                        id="stepEnterResult">
+              <ion-icon name="time-outline" color="light"></ion-icon>
+            </ion-button>
+            <!--Enter Value-->
+            <ion-button *ngIf="viewModel.showBtnEnterValue"
+                        (click)="btnEnterValueClick($event)"
+                        color="success"
+                        class="pre-wrap">
+              <ion-icon name="create-outline" class="color-white"></ion-icon>
+            </ion-button>
+            <!--Enter Duration-->
+            <ion-button *ngIf="viewModel.showBtnEnterDuration"
+                        (click)="btnEnterDurationClick($event)"
+                        color="success"
+                        class="pre-wrap">
+              <ion-icon name="hourglass-outline" class="color-white"></ion-icon>
+            </ion-button>
+            <!--Done-->
+            <ion-button *ngIf="viewModel.showBtnDone"
+                        (click)="btnDoneClick($event)"
+                        color="success">
+              <ion-icon name="checkbox-outline" class="color-white"></ion-icon>
+            </ion-button>
+            <!--Postpone-->
+            <ion-button *ngIf="viewModel.showPostponeBtn"
+                        (click)="btnPostponeClick($event)"
+                        color="primary"
+                        id="stepPostpone">
+               <ion-icon name="arrow-redo-outline"
+                         class="color-white"></ion-icon>            
+            </ion-button>
+            <!--Skip-->
+            <ion-button *ngIf="viewModel.showBtnSkip"
+                        (click)="btnSkipClick($event)"
+                        color="primary"
+                        id="stepSkip">
+              <ion-icon name="close-outline"
+                        class="color-white"></ion-icon>
+            </ion-button>
+            <!--Delete-->
+            <ion-button *ngIf="viewModel.showBtnDelete"
+                        (click)="btnDeleteClick($event)"
+                        color="danger"
+                        id="stepTrash">
+              <ion-icon name="trash-outline"
+                        class="color-white"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <!--Menu Small-->
+          <ion-col [hidden]="!viewModel.showTaskResult"
+                   size="1"
+                   class="content-center"
+                   (click)="onCardClick($event)"
+                   tappable>
+            <ion-icon name="ellipsis-vertical-outline"
+                      color="medium"></ion-icon>
+          </ion-col>
+          <!--Menu Big-->
+          <ion-col [hidden]="viewModel.showTaskResult"
+                   size="1"
+                   class="content-center"
+                   (click)="onCardClick($event)"
+                   tappable
+                   id="stepCardMenu">
+            <ion-icon name="ellipsis-vertical-outline"
+                      color="medium"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-grid [hidden]="!viewModel.isBodyShown && viewModel.hideTimer" 
+                class="background-white">
+        <!--Current Timer-->
+        <ion-row class="bordered-large"
+                [hidden]="viewModel.hideTimer">
+          <ion-col class="content-center">
+            <app-timer #htmlTimer
+                      [currentTaskId]="viewModel.currentTask.CalendarTaskId"></app-timer>
+          </ion-col>
+        </ion-row>
+        <!--Note-->
+        <ion-row *ngIf="viewModel.showNote" class="bordered">
+          <!--ion-col size="2"
+                  class="content-center">
+            <ion-button size="small"
+                        color="light">
+              <ion-icon name="pencil-outline"></ion-icon>
+            </ion-button>
+          </ion-col-->
+          <ion-col class="content-center">
+            <ion-text>{{ 'task-card.lbl-note' | translate }} : {{ viewModel.currentNote }}</ion-text>
+          </ion-col>
+        </ion-row>
+        <!--Stats-->
+        <ion-row *ngFor="let taskStats of viewModel.taskStats"
+                [hidden]="viewModel.hideStats"
+                class="bordered">
+          <ion-col>
+            <app-task-scores [taskStats]="taskStats"
+                             [calendarTaskId]="currentTask.CalendarTaskId"
+                             [loadEvent]="viewModel.eventLoadStats.asObservable()"></app-task-scores>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+</ion-grid>

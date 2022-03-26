@@ -30,19 +30,6 @@ ion-checkbox {
   margin-left: 10px;
 }
 
-
-.no-margin-vertical {
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
-}
-
-.no-margin {
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
-  margin-left: 0px !important;
-  margin-right: 0px !important;
-}
-
 .margin-bottom {
   margin-bottom: 8px;
 }
@@ -94,21 +81,6 @@ ion-list {
   background: var(--ion-color-light);
 }
 
-.content-center-evenly {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  ion-icon {
-    margin-right: 5px;
-  }
-}
-
-
 .small-font {
   font-size: small;
-}
-
-.margin-left {
-  margin-left: 5px;
 }

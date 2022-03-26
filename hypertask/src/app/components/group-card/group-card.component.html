@@ -1,26 +1,28 @@
 <ion-card color="dark"
           [hidden]="!currentGroup.isVisible">
   <!--Group Header-->
-  <ion-card-header >
+  <ion-card-header>
     <ion-grid>
       <ion-row>
         <!--Toggle-->
         <ion-col size="3" (click)="toggleGroup()" tappable 
             id="stepGroupArrow">
           <ion-icon name="caret-down-outline"
-                    [hidden]="currentGroup.isExpanded"></ion-icon>
+                    [hidden]="currentGroup.isExpanded"
+                    class="font-large"></ion-icon>
           <ion-icon name="caret-up-outline"
-                    [hidden]="!currentGroup.isExpanded"></ion-icon>
+                    [hidden]="!currentGroup.isExpanded"
+                    class="font-large"></ion-icon>
         </ion-col>
         <!--Group Title-->
         <ion-col size="6">
           <ion-title class="text-center">
-            <ion-label color="light">{{ currentGroup.Name }}</ion-label>
+            <ion-label color="light" class="font-large">{{ currentGroup.Name }}</ion-label>
           </ion-title>
         </ion-col>
         <!--Progress-->
         <ion-col size="2">
-          <ion-label class="font-small" color="light">{{ currentGroup.ProgressText }}</ion-label>
+          <ion-label class="font-small" color="light" class="font-large">{{ currentGroup.ProgressText }}</ion-label>
         </ion-col>
         <!--Action Menu-->
         <ion-col size="1"
@@ -38,7 +40,7 @@
                        (ionItemReorder)="doReorder($event)"
                        #reorderGroup>
       <!--Task Cards-->
-      <ion-item *ngFor="let task of currentGroup.Tasks"
+      <ion-item *ngFor="let task of currentGroup.Tasks; trackBy: trackTaskCards"
                 [hidden]="!task.IsShown"
                 lines="none"
                 color="dark"
