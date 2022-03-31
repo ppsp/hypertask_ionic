@@ -395,7 +395,7 @@ export class CalendarTaskService {
   public async getAllTodoFromServer(request: DTOGetCalendarTaskRequest): Promise<DTOCalendarTask[]> {
     const resultRemote = await this.apiProvider.getTasks(request);
 
-    // console.log('RESULT FROM SERVER', resultRemote);
+    console.log('RESULT FROM SERVER', resultRemote);
 
     // todo: try to move this out of this class
     if (resultRemote != null && resultRemote.length > 0) {
@@ -753,14 +753,14 @@ export class CalendarTaskService {
   }
 
   public async getAllGroupsFromServer(): Promise<DTOTaskGroup[]> {
-    // console.log('getAllGroupsFromServer');
+    console.log('getAllGroupsFromServer');
     const userId = await this.userService.getCurrentUserId();
     const resultRemote = await this.apiProvider.getGroups(userId);
 
     // todo: try to move this out of this class
     if (resultRemote != null && resultRemote.length > 0) {
 
-      // console.log('RESULT FROM SERVER GROUPS', resultRemote);
+      console.log('RESULT FROM SERVER GROUPS', resultRemote);
 
       this.setGroupSyncedToTrue(resultRemote);
 

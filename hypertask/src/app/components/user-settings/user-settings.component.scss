@@ -64,15 +64,12 @@ ion-list {
   background: var(--ion-color-light);
 }
 
-.small-font {
-  font-size: small;
-}
-
 .padding-5 {
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.align-left {
-  justify-content: left;
+ion-item {
+  padding: 10px;
+  background-color: white;
 }

@@ -18,6 +18,7 @@ ion-card {
   flex-direction: column;
   border-color: darkgreen;
   border-style: solid;
+  padding: 10px;
 }
 
 ion-content{
@@ -37,10 +38,18 @@ h2 {
   font-weight: bold;
 }
 
-.padding-top {
+.margin-top {
   padding-top: 10px;
+}
+
+.margin-bottom {
+  padding-top: 10px !important;
 }
 
 .max-width {
   width: 100%;
+}
+
+.padding-5 {
+  padding:5px;
 }

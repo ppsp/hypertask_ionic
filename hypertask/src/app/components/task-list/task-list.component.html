@@ -49,7 +49,8 @@
         </ion-col>
       </ion-row>
       <!--Progress Bar-->
-      <ion-row [hidden]="showSettings">
+      <ion-row [hidden]="showSettings"
+               class="margin-bottom-5">
         <!--Sync Icon-->
         <ion-col size="1">
           <ion-icon name="repeat-outline"
@@ -86,25 +87,25 @@
                (ionChange)="prioritize($event)"
                id="stepPrioritizeExecute">
     <ion-segment-button value="Prioritize">
-      <ion-grid>
+      <ion-grid class="content-center">
         <ion-row>
           <ion-col>
-            <ion-icon name="swap-vertical-outline" color="primary"></ion-icon>
+            <ion-icon name="swap-vertical-outline" color="primary" class="font-large margin-5"></ion-icon>
           </ion-col>
           <ion-col>
-            <ion-label color="primary" class="text-wrap">Prioritize</ion-label>
+            <ion-label color="primary" class="text-wrap font-large">Prioritize</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-segment-button>
-    <ion-segment-button value="Execute">
-      <ion-grid>
+    <ion-segment-button value="Execute" class="content-center">
+      <ion-grid class="content-center">
         <ion-row>
           <ion-col>
-            <ion-icon name="checkbox-outline" color="success"></ion-icon>
+            <ion-icon name="checkbox-outline" color="success" class="font-large margin-5"></ion-icon>
           </ion-col>
           <ion-col>
-            <ion-label color="success" class="text-wrap">Execute</ion-label>
+            <ion-label color="success" class="text-wrap font-large">Execute</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>

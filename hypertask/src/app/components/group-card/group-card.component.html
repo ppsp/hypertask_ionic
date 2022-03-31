@@ -3,10 +3,10 @@
   <!--Group Header-->
   <ion-card-header>
     <ion-grid>
-      <ion-row>
+      <ion-row (click)="toggleGroup()" tappable>
         <!--Toggle-->
-        <ion-col size="3" (click)="toggleGroup()" tappable 
-            id="stepGroupArrow">
+        <ion-col size="3"
+                 id="stepGroupArrow">
           <ion-icon name="caret-down-outline"
                     [hidden]="currentGroup.isExpanded"
                     class="font-large"></ion-icon>

@@ -11,6 +11,8 @@ ion-card-content {
   max-height: 100%;
   padding: 1px !important;
   margin: 4px !important;
+  margin-left: 16px !important;
+  margin-right:16px !important;
 }
 
 ion-col {
@@ -122,11 +124,6 @@ ion-item {
   width: 100%;
 }
 
-.text-align-left {
-  float: left;
-  text-align: left;
-}
-
 .note-padding {
   padding: 4px;
   margin: 4px;
@@ -134,4 +131,9 @@ ion-item {
 
 ion-title {
   color: black;
+  font-size: medium;
+}
+
+ion-card {
+  min-height: 32px;
 }

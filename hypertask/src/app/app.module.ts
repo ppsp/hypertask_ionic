@@ -72,6 +72,11 @@ import { TimerComponent } from './components/TaskCard/timer/timer.component';
 import { TaskScoresComponent } from './components/TaskCard/task-scores/task-scores.component';
 import { TaskCreateComponent } from './components/task-create/task-create.component';
 import { ApplicationInsightsService } from './services/application-insights.service';
+import { TaskListPopoverComponent } from './components/task-list-popover/task-list-popover.component';
+import { NoteListComponent } from './components/note-list/note-list.component';
+import { TaskEditComponent } from './components/task-edit/task-edit.component';
+import { GroupCreateComponent } from './components/group-create/group-create.component';
+import { GroupEditComponent } from './components/group-edit/group-edit.component';
 
 //import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -138,12 +143,16 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     DebugLogComponent,
     TaskListComponent,
     GroupListComponent,
+    TaskListPopoverComponent,
     GroupCardComponent,
-    GroupListComponent,
+    NoteListComponent,
     TaskCardPopoverComponent,
     TimerComponent,
     TaskCreateComponent,
+    TaskEditComponent,
     TaskScoresComponent,
+    GroupCreateComponent,
+    GroupEditComponent
   ],
   entryComponents: [],
   imports: [

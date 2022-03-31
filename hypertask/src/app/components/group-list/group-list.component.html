@@ -13,9 +13,7 @@
         </ion-col>
         <!--Title-->
         <ion-col>
-          <ion-label color="light">
-            <ion-title>{{ 'group-list.lbl-title' | translate }}</ion-title>
-          </ion-label>
+          <h2>{{ 'group-list.lbl-title' | translate }}</h2>
         </ion-col>
         <!--Add Group "+" Button-->
         <ion-col size="3">
@@ -32,6 +30,7 @@
     <ion-card *ngFor="let group of calendarTaskService.allGroups"
               [hidden]="group.Void === true"
               color="dark"
+              class="content-center"
               (click)="btnGroupHeaderClick(group)" tappable>
       <ion-card-header>
         <ion-label>

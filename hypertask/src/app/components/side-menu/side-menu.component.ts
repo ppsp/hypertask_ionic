@@ -14,6 +14,14 @@ import { ILocalStorageService } from 'src/app/interfaces/i-local-storage-service
 import { ILogger } from 'src/app/interfaces/i-logger';
 import { IDataSyncLocalService } from 'src/app/interfaces/i-data-sync-local-service';
 import { IUserService } from 'src/app/interfaces/i-user-service';
+import { SendFeedbackComponent } from '../send-feedback/send-feedback.component';
+import { NoteListComponent } from '../note-list/note-list.component';
+import { TaskSelectionComponent } from '../task-selection/task-selection.component';
+import { UserSettingsComponent } from '../user-settings/user-settings.component';
+import { PrivacyComponent } from '../privacy/privacy.component';
+import { DebugLogComponent } from '../debug-log/debug-log.component';
+import { GroupListComponent } from '../group-list/group-list.component';
+import { TermsComponent } from '../terms/terms.component';
 
 @Component({
   selector: 'app-side-menu',
@@ -73,10 +81,10 @@ export class SideMenuComponent implements OnInit, OnDestroy {
         this.menu.close();
       });
 
-      const userId = await this.userService.getCurrentUserId();
+      //const userId = await this.userService.getCurrentUserId();
       // if (userId === 'Hwnf3hxuFjgIai5QxvyDNdsCZFB2' || userId === 'Ashvg7vzEhOL7gdZDeVBHzbYp4C2') {
         // console.log('DEV MODE ENABLED');
-      this.showDevMode = true;
+      this.showDevMode = true; // TODO : Deactivate for prod
       // }
 
       // Show Refresh if user syncs to cloud
@@ -175,7 +183,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
   }
 
   public async btnShowDebugLogs(): Promise<void> {
-    //await this.modalService.showLogsModal(DebugLogComponent); TODO COMPONENT
+    await this.modalService.showLogsModal(DebugLogComponent); //TODO COMPONENT
   }
 
   public btnExitAppClick(): void {
@@ -209,23 +217,23 @@ export class SideMenuComponent implements OnInit, OnDestroy {
   }
 
   public async btnBugReportClick(): Promise<void> {
-    //await this.modalService.showFeedbackModal(SendFeedbackComponent);
+    await this.modalService.showFeedbackModal(SendFeedbackComponent);
   }
 
   public async btnNoteClick(): Promise<void> {
-    //await this.modalService.showNotesModal(NoteListComponent);
+    await this.modalService.showNotesModal(NoteListComponent);
   }
 
   public async btnSelectNewTasksClick(): Promise<void> {
-    //await this.modalService.showTaskSelectionModal(TaskSelectionComponent);
+    await this.modalService.showTaskSelectionModal(TaskSelectionComponent);
   }
 
   public async btnUserSettingsClick() {
-    //await this.modalService.showUserSettingsModal(UserSettingsComponent);
+    await this.modalService.showUserSettingsModal(UserSettingsComponent);
   }
 
   public async btnPrivacyClick() {
-    //await this.modalService.showPrivacyModal(PrivacyComponent);
+    await this.modalService.showPrivacyModal(PrivacyComponent);
   }
 
   public async btnResetLocalDatabase() {
@@ -240,7 +248,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
   }
 
   public async btnTermsClick() {
-    //await this.modalService.showTermsModal(TermsComponent);
+    await this.modalService.showTermsModal(TermsComponent);
   }
 
   public async btnShowUnsyncedData() {
@@ -278,7 +286,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
   }
 
   public async btnTaskGroupsClick() {
-    //await this.modalService.showGroupsModal(GroupListComponent);
+    await this.modalService.showGroupsModal(GroupListComponent);
   }
 
   public async btnWalkthroughClick() {
