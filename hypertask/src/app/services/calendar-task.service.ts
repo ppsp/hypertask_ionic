@@ -781,6 +781,8 @@ export class CalendarTaskService {
 
   public async insertGroup(group: TaskGroup): Promise<void> {
 
+    console.log('INSERTING GROUP ', group);
+
     group.UpdateDate = new Date();
     group.InsertDate = new Date();
 
@@ -819,7 +821,7 @@ export class CalendarTaskService {
   }
 
   public async updateGroup(group: TaskGroup): Promise<boolean> {
-    // console.log('UPDATING GROUP', group);
+    console.log('UPDATING GROUP', group);
     group.UpdateDate = new Date();
 
     // REORDER
@@ -828,6 +830,8 @@ export class CalendarTaskService {
       // console.log('reordering task necessary', new Date().toISOString());
       await this.reorderGroups(group);
     }
+
+    console.log('NEW GROUP ORDER : ', this.allGroups);
 
     await this.localDataSync.queueUpdateGroup(group.toDTO(), false);
 
@@ -921,6 +925,10 @@ export class CalendarTaskService {
         }
       }
 
+      console.log('REORDERED GROUPS : ', groups);
+
+      this.reorderAllRamGroups();
+
       await this.updateGroupsAsyncNoPositionCheckBatch(groups);
     }
 
@@ -928,10 +936,13 @@ export class CalendarTaskService {
   }
 
   public async reorderAllGroups(group: TaskGroup) {
+    console.log('reorder all groups', group);
     let groups = this.allGroups
                     .filter(p => p.GroupId !== group.GroupId);
     groups.push(group);
     groups = groups.sort((x, y) => x.Position > y.Position ? 1 : -1);
+
+    console.log('sorted groups', groups);
 
     let positionIterator = 1;
     for (const g of groups) {
@@ -948,7 +959,7 @@ export class CalendarTaskService {
 
   private async updateGroupsAsyncNoPositionCheckBatch(groups: TaskGroup[],
                                                       synced: boolean = true) {
-    // console.log('updateTaskAsyncNoPositionCheckBatch', tasks, synced);
+    console.log('updateGroupsAsyncNoPositionCheckBatch', groups, synced);
     groups.forEach(p => p.Synced = synced);
     for (const group of groups) {
       const index = this.allGroups.findIndex(p => p.GroupId === group.GroupId);

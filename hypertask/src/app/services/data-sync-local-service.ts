@@ -223,6 +223,9 @@ export class DataSyncLocalService implements IDataSyncLocalService {
   }
 
   public async queueUpdateGroups(groups: DTOTaskGroup[], synced: boolean = false): Promise<any> {
+
+    console.log('queueUpdateGroups', groups);
+
     if (groups == null || groups.length === 0) {
       return;
     }

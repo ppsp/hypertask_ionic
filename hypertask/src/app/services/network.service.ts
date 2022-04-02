@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
-//import { Network } from '@ionic-native/network/ngx';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { ToastController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
+import { Network } from '@capacitor/network';
 
 export enum ConnectionStatus {
   Online,
@@ -18,16 +18,19 @@ export enum ConnectionStatus {
 })
 export class NetworkService implements OnDestroy {
 
-  private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
+  //private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
   private connectSubscription: Subscription;
   private disconnectSubscription: Subscription;
 
-  constructor(/*private network: Network, */private toastController: ToastController, private plt: Platform) {
-    /*this.plt.ready().then(() => { TODO CAPACITOR
+  constructor(private plt: Platform) {
+    this.plt.ready().then(() => {
       this.initializeNetworkEvents();
-      const status =  this.network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
-      this.status.next(status);
-    });*/
+      /*Network.addListener('networkStatusChange', status => {
+        console.log('Network status changed', status);
+      });*/
+      //const status = (await Network.getStatus()) == ConnectionStatus.Online : ConnectionStatus.Offline;
+      //this.status.next(status);
+    });
   }
 
   ngOnDestroy() {
@@ -51,16 +54,25 @@ export class NetworkService implements OnDestroy {
   }
 
   private async updateNetworkStatus(status: ConnectionStatus) {
-    this.status.next(status);
+    //this.status.next(status);
     const connection = status === ConnectionStatus.Offline ? 'Offline' : 'Online';
     // console.log('connection status = ', connection);
   }
 
-  public onNetworkChange(): Observable<ConnectionStatus> {
+  /*public onNetworkChange(): Observable<ConnectionStatus> {
     return this.status.asObservable();
-  }
+  }*/
 
-  public getCurrentNetworkStatus(): ConnectionStatus {
-    return this.status.getValue();
+  public async getCurrentNetworkStatus(): Promise<ConnectionStatus> {
+    console.log('GETTING CURRENT NETWORK STATUS');
+    //return this.status.getValue();
+    var status = await Network.getStatus();
+    if (status.connected === true) {
+      console.log('ONELINE');
+      return ConnectionStatus.Online;
+    } else {
+      console.log('OFFLINE', status);
+      return 
+    }
   }
 }

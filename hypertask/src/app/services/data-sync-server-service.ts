@@ -417,10 +417,10 @@ export class DataSyncServerService {
 
   private async sendUnsentHistories(unSentHistories: DTOTaskHistory[]): Promise<boolean> {
     try {
-      /*this.logger.logEvent('sendUnsentHistories', {
+      this.logger.logEvent('sendUnsentHistories', {
         key: 'unSentHistories',
         value: JSON.stringify(unSentHistories)
-      });*/
+      });
 
       // this.logger.logDebug('sending unsent histories');
       const taskHistoryIds = await this.apiProvider.insertTaskHistories(unSentHistories);
@@ -447,10 +447,10 @@ export class DataSyncServerService {
 
   private async syncUnsyncedHistories(unSyncedHistories: DTOTaskHistory[]): Promise<boolean> {
     try {
-      /*this.logger.logEvent('syncUnsyncedHistories', {
+      this.logger.logEvent('syncUnsyncedHistories', {
         key: 'syncUnsyncedHistories',
         value: JSON.stringify(unSyncedHistories)
-      });*/
+      });
       const success = await this.apiProvider.updateTaskHistories(unSyncedHistories);
       if (success) {
         for (const history of unSyncedHistories) {
@@ -722,10 +722,13 @@ export class DataSyncServerService {
   public async processQueue(): Promise<boolean> {
     console.log('PROCESSING QUEUE SERVER SYNC');
     if (this.calendarTaskService.getAllTasks().length > 0) {
-      // console.log('CHECK FOR EVENTS : CONFIGS', (await this.userService.getCurrentUser()).Config);
+      console.log('CHECK FOR EVENTS : CONFIGS', (await this.userService.getCurrentUser()).Config);
       // console.log('ENABLE7');
       if (this.userService.getConfig(UserConfig.EnableCloudSyncKey) === true) {
-        const status = this.network.getCurrentNetworkStatus();
+        const status = await this.network.getCurrentNetworkStatus();
+
+        console.log(':O :O :O :O  STATUS : ', status);
+
         if (status === ConnectionStatus.Online) {
           // console.log('NETWORK STATUS ONLINE', status);
           return await this.processUnsynchronized();

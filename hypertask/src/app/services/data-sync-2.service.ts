@@ -46,9 +46,9 @@ export class DataSyncService2 {
       try {
         if (this.ThreadTasks.length > 0) {
           const initialName = this.ThreadTasks[0].name;
-          // console.log('------ PROCESSING THREAD TASK : ' + this.ThreadTasks[0].name, initialName);
+          console.log('------ PROCESSING THREAD TASK : ' + this.ThreadTasks[0].name, initialName);
           await this.ThreadTasks[0].processTransaction(this.localDataSync, this.serverDataSync, /*this.notificationService, */ this.logger);
-          // console.log('++++++ THREAD TASK COMPLETED : ' + this.ThreadTasks[0].name, initialName);
+          console.log('++++++ THREAD TASK COMPLETED : ' + this.ThreadTasks[0].name, initialName);
           this.ThreadTasks.splice(0, 1);
         } /*else {
           console.log('xxxxxx - NO TASK TO PROCESS - xxxxxx');
@@ -200,7 +200,7 @@ class ServerSyncThreadTask implements ThreadTask {
     try {
       console.log('SERVERSYNCTHREAD');
       await serverDataSync.processQueue();
-      // console.log('SERVERSYNCTHREAD DONE');
+      console.log('SERVERSYNCTHREAD DONE');
       return true;
     } catch (error) {
       logger.logError(error);

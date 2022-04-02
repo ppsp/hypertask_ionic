@@ -81,7 +81,7 @@ export class ApplicationInsightsService implements ILogger, OnDestroy {
     try {
       this.appInsights.trackEvent(event, properties);
       this.appInsights.flush(false);
-      // console.log('tracking event successful', event);
+      console.log('tracking event successful', event);
     } catch {
       // console.log('error tracking event');
     }

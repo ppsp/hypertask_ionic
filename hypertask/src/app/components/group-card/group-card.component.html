@@ -40,13 +40,13 @@
                        (ionItemReorder)="doReorder($event)"
                        #reorderGroup>
       <!--Task Cards-->
-      <ion-item *ngFor="let task of currentGroup.Tasks; trackBy: trackTaskCards"
+      <ion-item *ngFor="let task of currentGroup.Tasks"
                 [hidden]="!task.IsShown"
                 lines="none"
                 color="dark"
                 class="scroll margin-5 min-height-30 overflow-visible background-dark">
         <app-task-card [currentTask]="task"
-                        class="full-size header-border background-white"
+                        class="full-size header-border background-white content-center"
                         #taskcard></app-task-card>
       </ion-item>
     </ion-reorder-group>

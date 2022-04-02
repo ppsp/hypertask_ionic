@@ -16,7 +16,7 @@ import { Ionic4DatepickerModalComponent } from '@logisticinfotech/ionic4-datepic
 import { TaskFrequency } from 'src/app/models/Core/task-frequency.enum';
 import { ResultType } from 'src/app/models/Core/result-type.enum';
 import { UserConfig } from 'src/app/models/Core/user-config';
-import * as introJs from 'intro.js';
+import * as introJs from 'intro.js/intro.js';
 import NumberUtils from 'src/app/shared/number-utils';
 import ThreadUtils from 'src/app/shared/thread.utils';
 import { DataSyncServerService } from 'src/app/services/data-sync-server-service';

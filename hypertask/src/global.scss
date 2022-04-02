@@ -27,6 +27,9 @@
 
 @import '~firebaseui/dist/firebaseui.css';
 
+.introjs-tooltiptext {
+  color: black !important;
+}
 
 .selectable {
   -webkit-user-select: text;
@@ -397,4 +400,8 @@ ion-card {
 
 ion-toolbar {
   padding: 10px;
+}
+
+app-task-card {
+  min-height: 42px;
 }
