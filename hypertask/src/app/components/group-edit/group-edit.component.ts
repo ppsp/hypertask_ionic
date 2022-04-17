@@ -175,7 +175,7 @@ export class GroupEditComponent implements OnInit, OnDestroy {
   }
 
   public async btnEditPositionClick() {
-    console.log('EDITBUTTON CLICK');
+    //console.log('EDITBUTTON CLICK');
 
     const handlerOk: (alertData: any) => void = (alertData) => {
       this.selectedAfterGroup = this.allOtherGroups.filter(p => p.Name === alertData)[0];
@@ -199,14 +199,12 @@ export class GroupEditComponent implements OnInit, OnDestroy {
                                                                                               this.selectedAfterGroup.Name);
     const alert = await this.alertCtrl.create(alertOptions);
     await alert.present();
-    console.log('ALTERT CREATED');
 
     this.setBackButtonAlert(alert);
-    console.log('EDITBUTTON CLICK 3');
+
     await alert.onDidDismiss();
-    console.log('EDITBUTTON CLICK 4');
+
     this.resetBackButton();
-    console.log('EDITBUTTON CLICK DONE');
   }
 
   public async btnDeleteClick() {
@@ -273,7 +271,6 @@ export class GroupEditComponent implements OnInit, OnDestroy {
 
   public absolutePositionChange(absolutePosition: number) {
     this.currentGroup.Position = absolutePosition + 1;
-    console.log('position changed ' + (absolutePosition + 1));
   }
   
   public async taskTypeChanged(event: any) {

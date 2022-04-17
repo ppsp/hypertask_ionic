@@ -77,10 +77,12 @@ export class TimerService {
                                               p.isVoid === false &&
                                               DateUtils.datesAreEqual(p.TimerDate, date));
 
+    //console.log('TIMERS : ', timers);
+
     if (timers.length > 0) {
       if (timers.length > 1) {
         alert('Multiple timers for same taskid');
-        this.logger.logDebug('MULTIPLE TIMERS FOR SAME TASKID', timers[9].CalendarTaskId);
+        //this.logger.logDebug('MULTIPLE TIMERS FOR SAME TASKID', timers[9].CalendarTaskId);
         // this.logger.logDebug('MULTIPLE TIMERS FOR SAME TASKID', JSON.stringify(timers));
         // Delete extra timers but we need to find the source of this
         if (timers.length > 0) {
@@ -94,7 +96,7 @@ export class TimerService {
       }*/
       return timers[0];
     } else {
-     /* if (calendarTaskId === 'XpcSrbVi3b8AMEwUJ8Lq') {
+      /*if (calendarTaskId === 'XpcSrbVi3b8AMEwUJ8Lq') {
         this.logger.logEvent('logger is null', { key: 'this.allTimers', value: JSON.stringify(this.allTimers)});
       }*/
       return null;
@@ -104,6 +106,8 @@ export class TimerService {
   public async loadTimersFromDatabase(): Promise<void> {
     const dtos = await this.local.getTimers(false);
     this.allTimers = dtos.filter(p => p.isVoid !== true).map(p => TaskTimer.fromDTO(p));
+
+    //console.log('TIMERS FROM DATABASE', this.allTimers);
 
     for (const timer of this.allTimers) {
       // RUNNING TIMER

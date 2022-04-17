@@ -65,6 +65,7 @@ export class GroupCreateComponent implements OnInit, OnDestroy {
       // TODO: Remove this later, same for edit/create
       if (task.GroupId == null || task.GroupId.length === 0) {
         task.GroupId = CalendarTaskService.UnassignedId;
+        //console.log('FILLED UNASSIGNED : ', task.GroupId);
       }
 
       if (task.GroupId === CalendarTaskService.UnassignedId) {

@@ -383,7 +383,7 @@ export class SqliteService implements ILocalStorageService {
   }
 
   public async getUser(userId: string): Promise<DTOUser> {
-    console.log('getUser');
+    //console.log('getUser');
     // console.log('getting user from local (awaiting)');
     // await this.lockLocalStorage(false, 'getUser');
     // console.log('getting user from local');
@@ -392,7 +392,7 @@ export class SqliteService implements ILocalStorageService {
     try {
       const user = await this.storage.get(SqliteService.USER_KEY + userId) as DTOUser;
 
-      console.log('gotUser');
+      //console.log('gotUser');
       // console.log('got user');
       if (user.Config.Configs == null || user.Config.Configs.length == null) {
         // console.log('INITIALIZING NEW CONFIGS');
@@ -414,7 +414,7 @@ export class SqliteService implements ILocalStorageService {
   }
 
   public async setUser(user: DTOUser, alreadyLocked: boolean = false): Promise<void> {
-    console.log('setUser');
+    //console.log('setUser');
     // await this.lockLocalStorage(alreadyLocked, 'setUser');
     SqliteService.LastUsedDatabaseReason = 'setUser ' + (new Date()).toISOString();
 
@@ -434,10 +434,10 @@ export class SqliteService implements ILocalStorageService {
   }
 
   public async getTimers(alreadyReadOnly: boolean): Promise<DTOTaskTimer[]> {
-    console.log('getTimers');
+    //console.log('getTimers');
     // await this.waitForDbAvailable('getTimers');
     const query = 'SELECT * FROM task_timer';
-    console.log('this.database2:', SqliteService.database);
+    //console.log('this.database2:', SqliteService.database);
     const data = await SqliteService.database.executeSql(query, []);
     const timers: DTOTaskTimer[] = [];
     if (data.rows.length > 0) {
@@ -447,31 +447,31 @@ export class SqliteService implements ILocalStorageService {
       }
     }
 
-    console.log('timers: ', timers);
+    //console.log('timers: ', timers);
     return timers;
   }
 
   public async setTimers(timers: DTOTaskTimer[], alreadyReadOnly: boolean): Promise<void> {
-    console.log('SET TIMERS');
+    //console.log('SET TIMERS');
     for (const timer of timers) {
       await this.insertTimer(timer);
     }
   }
 
   public async insertTimer(timer: DTOTaskTimer): Promise<void> {
-    console.log('insertTimer');
+    //console.log('insertTimer');
     const data = [timer.TimerId, JSON.stringify(timer)];
     await SqliteService.database.executeSql('INSERT INTO task_timer (TIMER_ID,TIMER_DATA) VALUES (?, ?)', data);
   }
 
   public async updateTimer(timer: DTOTaskTimer): Promise<void> {
-    console.log('updateTimer');
+    //console.log('updateTimer');
     const data = [JSON.stringify(timer), timer.TimerId];
     await SqliteService.database.executeSql('UPDATE task_timer set TIMER_DATA = ? WHERE TIMER_ID = ?', data);
   }
 
   public async getGroups(alreadyLocked: boolean): Promise<DTOTaskGroup[]> {
-    console.log('getGroups');
+    //console.log('getGroups');
     const query = 'SELECT * FROM task_group';
     const data = await SqliteService.database.executeSql(query, []);
     const groups: DTOTaskGroup[] = [];
@@ -481,7 +481,7 @@ export class SqliteService implements ILocalStorageService {
       }
     }
 
-    console.log('groups: ', groups);
+    //console.log('groups: ', groups);
     return groups;
   }
 

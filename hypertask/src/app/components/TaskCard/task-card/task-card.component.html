@@ -133,7 +133,8 @@
     </ion-col>
   </ion-row>
   <!--Current Timer-->
-  <ion-row [hidden]="viewModel.hideTimer">
+  <ion-row [hidden]="viewModel.hideTimer"
+           class="bordered-large">
     <ion-col>
       <app-timer #htmlTimer
                 [currentTaskId]="viewModel.currentTask.CalendarTaskId"></app-timer>

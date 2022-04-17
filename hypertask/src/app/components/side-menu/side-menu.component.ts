@@ -112,13 +112,13 @@ export class SideMenuComponent implements OnInit, OnDestroy {
   }
 
   public async btnReloadFromServerClick(): Promise<void> {
-    // console.log('RELOADING STARTING');
+    //console.log('RELOADING STARTING');
     // console.log('refresh');
     const loading = await this.loadingController.create({
       message: this.translate.instant('menu.reloading-tasks'),
       id: 'reload-server'
     });
-    // await loading.present();
+    await loading.present();
 
     let canReloadDataSynced = await this.serverDataSync.allDataIsSynced();
     let canReloadTimerOn = !this.timerService.anyTimerOn();
@@ -253,7 +253,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
 
   public async btnShowUnsyncedData() {
     const loading = await this.loadingController.create({
-      message: this.translate.instant('menu.-msg-loading-unsynced-data')
+      message: this.translate.instant('menu.msg-loading-unsynced-data')
     });
     await loading.present();
     const localData = await this.serverDataSync.getUnsynchronized();

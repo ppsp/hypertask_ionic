@@ -161,6 +161,8 @@ export class DataSyncServerService {
     if (storedGroups != null) {
       const unSyncedGroups = this.getUnsyncedGroups(storedGroups);
 
+      console.log('UNSYNCED GROUPPPS ', unSyncedGroups);
+
       if (unSyncedGroups != null && unSyncedGroups.length > 0) {
         result.push('unSyncedGroups');
         result.push(JSON.stringify(unSyncedGroups));
@@ -176,10 +178,10 @@ export class DataSyncServerService {
   }
 
   private async processUnsynchronized(): Promise<boolean> {
-    console.log('processUnsynchronized');
+    //console.log('processUnsynchronized');
     // TODO : Remove this as soon as it's stable
     // const syncStart = new Date();
-    this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, LOCKING');
+    //this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, LOCKING');
 
     await this.local.waitForDbAvailable('checkForUnsynchronized');
 
@@ -287,9 +289,9 @@ export class DataSyncServerService {
     }
 
     // UNSYNCED GROUPS
-    // this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, GETTING GROUPS 2');
+    this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, GETTING GROUPS 2');
     storedGroups = await this.local.getGroups(true);
-    // this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, GOT GROUPS 2');
+    this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, GOT GROUPS 2');
     if (storedGroups != null) {
       const unSyncedGroups = this.getUnsyncedGroups(storedGroups);
 
@@ -510,10 +512,10 @@ export class DataSyncServerService {
 
   private async syncUnsyncedGroups(unSyncedGroups: DTOTaskGroup[]): Promise<boolean> {
     try {
-      /*this.logger.logEvent('unSyncedGroups', {
+      this.logger.logEvent('unSyncedGroups', {
         key: 'unSyncedGroups',
         value: JSON.stringify(unSyncedGroups)
-      });*/
+      });
 
       let success = true;
       for (const group of unSyncedGroups) {
@@ -726,8 +728,6 @@ export class DataSyncServerService {
       // console.log('ENABLE7');
       if (this.userService.getConfig(UserConfig.EnableCloudSyncKey) === true) {
         const status = await this.network.getCurrentNetworkStatus();
-
-        console.log(':O :O :O :O  STATUS : ', status);
 
         if (status === ConnectionStatus.Online) {
           // console.log('NETWORK STATUS ONLINE', status);

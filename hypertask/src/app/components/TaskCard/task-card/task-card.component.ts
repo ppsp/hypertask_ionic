@@ -165,7 +165,7 @@ export class TaskCardComponent implements OnInit, AfterViewInit, OnDestroy {
     await this.voidResult();
     const seconds = Number(history.TaskResult);
     // this.timerComponent.first.currentTimerObject.currentTimerSeconds = history.TaskResult;
-    this.startTimer(seconds);
+    await this.startTimer(seconds);
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -424,7 +424,7 @@ export class TaskCardComponent implements OnInit, AfterViewInit, OnDestroy {
       message: this.translate.instant('edit-task.msg-deleting-task'),
     });
     loading.present();*/
-    // console.log('deleting started', new Date().toISOString());
+    console.log('deleting started', new Date().toISOString(), this.currentTask);
     this.currentTask.Void = true;
     this.currentTask.UserId = await this.userService.getCurrentUserId();
     const result = await this.calendarTaskService.updateCalendarTask(this.currentTask);

@@ -616,13 +616,13 @@ export class LocalStorageService implements ILocalStorageService {
   }
 
   public async getTimers(alreadyLocked: boolean = false): Promise<DTOTaskTimer[]> {
-    // this.logger.logDebug('GETTING TIMERS)');
+    //this.logger.logDebug('GETTING TIMERS)');
     await this.lockLocalStorage(alreadyLocked, 'getTimers');
     LocalStorageService.LastUsedDatabaseReason = 'getTimers ' + (new Date()).toISOString();
 
     try {
       let timers = await this.storage.get(LocalStorageService.TIMER_KEY) as DTOTaskTimer[];
-      // this.logger.logDebug('LOCAL GETTIMERS : ', JSON.stringify(timers));
+      //this.logger.logDebug('LOCAL GETTIMERS : ', JSON.stringify(timers));
       if (timers == null || timers.length == null) {
         // console.log('INITIALIZING NEW TIMERS');
         timers = [];
@@ -645,7 +645,7 @@ export class LocalStorageService implements ILocalStorageService {
     LocalStorageService.LastUsedDatabaseReason = 'setTimers ' + (new Date()).toISOString();
 
     try {
-      // console.log('LOCAL SET TIMERS', timers, LocalStorageService.TIMER_KEY);
+      //console.log('LOCAL SET TIMERS', timers, LocalStorageService.TIMER_KEY);
       await this.storage.set(LocalStorageService.TIMER_KEY, timers);
       return;
     } catch (error) {

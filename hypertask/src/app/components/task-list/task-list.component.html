@@ -77,7 +77,7 @@
 <!--Scrollable Body-->
 <ion-content color="medium">
   <!--Group List-->
-  <app-group-card *ngFor="let group of taskService.allGroups; trackBy: trackGroupCards"
+  <app-group-card *ngFor="let group of taskService.allGroups"
                   [currentGroup]="group"></app-group-card>
 </ion-content>
 

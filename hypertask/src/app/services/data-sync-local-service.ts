@@ -34,7 +34,7 @@ export class DataSyncLocalService implements IDataSyncLocalService {
   }
 
   public async processQueue(): Promise<void> {
-    // console.log('PROCESSING QUEUE');
+    console.log('PROCESSING QUEUE');
     while (this.transactionQueue.length > 0) {
       const transaction = this.transactionQueue.shift();
 
@@ -45,7 +45,7 @@ export class DataSyncLocalService implements IDataSyncLocalService {
       }
     }
 
-    // console.log('QUEUE PROCESSED');
+    console.log('QUEUE PROCESSED');
     this.eventService.emit(new EventData(EventService.EventIds.LocalSyncCompleted, null));
 
     return;
@@ -167,6 +167,7 @@ export class DataSyncLocalService implements IDataSyncLocalService {
     transaction.transactionType = TransactionType.Insert;
     transaction.transactionObject = timer;
     this.transactionQueue.push(transaction);
+    console.log('queued timer', this.transactionQueue);
     return;
   }
 
@@ -352,6 +353,7 @@ class TimerTransaction implements Transaction {
                                   logger: ILogger): Promise<boolean> {
     try {
       if (this.transactionType === TransactionType.Insert) {
+        console.log('QUEUE PROCESS INSERT TIMER', this.transactionObject);
         await localService.insertTimer(this.transactionObject as DTOTaskTimer);
       } else if (this.transactionType === TransactionType.Update) {
         await localService.updateTimer(this.transactionObject as DTOTaskTimer);

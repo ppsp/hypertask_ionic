@@ -9,7 +9,15 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy-dev": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/ionic_deploy/deploy_dev.ps1",
+    "deploy-staging": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/ionic_deploy/deploy_stage.ps1",
+    "deploy-staging2": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/ionic_deploy/deploy_stage2.ps1",
+    "deploy-prod": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/ionic_deploy/deploy_prod.ps1",
+    "azure-create-staging": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/azure_create_resources/azure_create_resources_staging.ps1",
+    "azure-create2": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/azure_create_resources/azure_create_resources2.ps1",
+    "azure-create-prod": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/azure_create_resources/azure_create_resources_prod.ps1",
+    "azure-create-dev": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./src/scripts/azure_create_resources/azure_create_resources_dev.ps1"
   },
   "private": true,
   "dependencies": {

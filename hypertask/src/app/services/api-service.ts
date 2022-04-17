@@ -114,7 +114,7 @@ export class ApiService implements IApiService {
 
   public async insertTaskHistories(histories: DTOTaskHistory[]): Promise<string[]> {
 
-    console.log('inserting taskhistories', histories);
+    //console.log('inserting taskhistories', histories);
     const url = this.getApiUrlCall('api/TaskHistory');
     const headers = await this.getHttpHeaders();
 
@@ -263,6 +263,8 @@ export class ApiService implements IApiService {
   public async updateGroup(group: DTOTaskGroup): Promise<boolean> {
     const url = this.getApiUrlCall('api/TaskGroup');
     const headers = await this.getHttpHeaders();
+
+    console.log('UPDATING GROUP API : ', group);
 
     try {
       const groupId = await this.http.put<string>(url, group, { headers }).toPromise();

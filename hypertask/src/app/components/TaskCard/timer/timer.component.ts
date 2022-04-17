@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { TimerService } from 'src/app/services/timer.service';
 import { TaskTimer } from 'src/app/models/Core/task-timer';
 import { ILogger } from 'src/app/interfaces/i-logger';
-import { EventService } from 'src/app/services/event.service';
+import { EventData, EventService } from 'src/app/services/event.service';
 import { DateService } from 'src/app/services/date.service';
 import { Subscription } from 'rxjs';
 
@@ -86,13 +86,14 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private startTimer(initialSeconds: number): void {
+  private async startTimer(initialSeconds: number): Promise<void> {
     // console.log('STARTING TIMER', initialSeconds);
     this.logger.logDebug('START TIMER ' + this.currentTaskId);
     this.currentTimerObject = new TaskTimer(this.currentTaskId, this.dateService.currentWorkDate);
     this.currentTimerObject.currentTimerSeconds = initialSeconds;
     this.currentTimerObject.start();
-    this.timerService.addTimer(this.currentTimerObject);
+    await this.timerService.addTimer(this.currentTimerObject);
+    this.eventService.emit(new EventData(EventService.EventIds.SyncRequired, null));
     // console.log('currenttimer2', this.currentTimerObject);
   }
 

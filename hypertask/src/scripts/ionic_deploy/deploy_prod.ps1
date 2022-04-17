@@ -40,7 +40,8 @@ Copy-Item ".\src\environments\environment.source.staging.ts" -Destination ".\src
 # GET INSTRUMENTATION KEY FROM AZURE ?
 
 Write-Output "START BUILD"
-ionic cordova build android --prod --release -c $configValue
+#ionic cordova build android --prod --release -c $configValue
+ionic capacitor build android --prod --release -c $configValue
 
 Write-Output "GIT CHECKOUT MASTER BRANCH"
 Set-Location F:\GIT\HyperTaskWebApi

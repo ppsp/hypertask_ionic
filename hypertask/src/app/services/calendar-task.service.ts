@@ -48,6 +48,8 @@ export class CalendarTaskService {
   public getAllPresentTasks(): CalendarTask[] {
     const result: CalendarTask[] = [];
 
+    const dateStart = new Date();
+    console.log('getAllPresentTasks (EXPONENTIAL)', dateStart.toISOString());
     // TODO: BIG NONO this is exponential
     for (const group of this.allGroups) {
       for (const task of group.Tasks) {
@@ -61,6 +63,7 @@ export class CalendarTaskService {
         }
       }
     }
+    console.log('getAllPresentTasks DONE (EXPONENTIAL)', dateStart.toISOString());
 
     return result;
   }
@@ -232,7 +235,7 @@ export class CalendarTaskService {
    */
   public async updateCalendarTask(task: CalendarTask): Promise<boolean> {
     // log too long which includes all histories
-    // this.logger.logEvent('updating task', { key: 'task', value: JSON.stringify(task)});
+    this.logger.logEvent('updating task', { key: 'task', value: JSON.stringify(task)});
 
     // console.log('Updating task', task);
     task.UpdateDate = new Date();
@@ -254,7 +257,7 @@ export class CalendarTaskService {
 
   private replaceTaskInRam(task: CalendarTask) {
     const targetGroup = this.getGroup(task.GroupId);
-    // console.log('replacing in ram', targetGroup);
+    console.log('replacing in ram', targetGroup, task.GroupId, task, this.allGroups);
 
     if (task.InitialGroupId !== task.GroupId) {
       // remove from old group
@@ -269,20 +272,20 @@ export class CalendarTaskService {
       if (targetGroup != null) {
         const newIndex = targetGroup.Tasks.findIndex(p => p.CalendarTaskId === task.CalendarTaskId);
         if (newIndex !== -1) {
-          // console.log('removing from target group');
+          console.log('removing from target group');
           targetGroup.Tasks.splice(newIndex, 1);
         }
       }
       // add into new group
       targetGroup.Tasks.push(task);
     } else {
-      // console.log('TARGET GROUP BEFORE', targetGroup.Tasks.map(p => p.AbsolutePosition));
+      console.log('TARGET GROUP BEFORE', targetGroup.Tasks.map(p => p.AbsolutePosition));
       const index = targetGroup.Tasks.findIndex(p => p.CalendarTaskId === task.CalendarTaskId);
       targetGroup.Tasks[index] = task;
-      // console.log('TARGET GROUP AFTER', targetGroup.Tasks.map(p => p.AbsolutePosition));
+      console.log('TARGET GROUP AFTER', targetGroup.Tasks.map(p => p.AbsolutePosition));
     }
 
-    // console.log('replaced in ram', targetGroup);
+    console.log('replaced in ram', targetGroup);
   }
 
   public async reassignOrderTask(task: CalendarTask): Promise<void> {
@@ -410,6 +413,9 @@ export class CalendarTaskService {
 
   public async reloadAllGroupsAndTasksLocal(): Promise<void> {
     try {
+
+      console.log('reloadAllGroupsAndTasksLocal');
+
       let dtoTasks: DTOCalendarTask[] = [];
       let dtoGroups: DTOTaskGroup[] = [];
 
@@ -708,7 +714,8 @@ export class CalendarTaskService {
       if (index >= 0) {
         this.allGroups[index].Tasks.push(CalendarTask.fromDTO(task));
       } else {
-        task.GroupId = null;
+        //task.GroupId = null;
+        task.GroupId = CalendarTaskService.UnassignedId;
         group1.Tasks.push(CalendarTask.fromDTO(task));
       }
     }
@@ -753,7 +760,7 @@ export class CalendarTaskService {
   }
 
   public async getAllGroupsFromServer(): Promise<DTOTaskGroup[]> {
-    console.log('getAllGroupsFromServer');
+    //console.log('getAllGroupsFromServer');
     const userId = await this.userService.getCurrentUserId();
     const resultRemote = await this.apiProvider.getGroups(userId);
 
@@ -781,7 +788,7 @@ export class CalendarTaskService {
 
   public async insertGroup(group: TaskGroup): Promise<void> {
 
-    console.log('INSERTING GROUP ', group);
+    //console.log('INSERTING GROUP ', group);
 
     group.UpdateDate = new Date();
     group.InsertDate = new Date();
@@ -804,6 +811,7 @@ export class CalendarTaskService {
 
     await this.localDataSync.queueInsertGroup(group.toDTO());
     await this.localDataSync.queueUpdateCalendarTasks(group.Tasks.map(p => p.toDTO()), false);
+    this.eventService.emit(new EventData(EventService.EventIds.SyncRequired, null));
 
     // REMOVE TASKS FROM OTHER GROUPS
     // TODO : This is very innefficient
@@ -831,7 +839,7 @@ export class CalendarTaskService {
       await this.reorderGroups(group);
     }
 
-    console.log('NEW GROUP ORDER : ', this.allGroups);
+    //console.log('NEW GROUP ORDER : ', this.allGroups);
 
     await this.localDataSync.queueUpdateGroup(group.toDTO(), false);
 
@@ -864,6 +872,7 @@ export class CalendarTaskService {
 
       if (toUpdateTasks.length > 0) {
         await this.localDataSync.queueUpdateCalendarTasks(toUpdateTasks.map(p => p.toDTO()), false);
+        this.eventService.emit(new EventData(EventService.EventIds.SyncRequired, null));
       }
 
       // Remove from groups if voided
