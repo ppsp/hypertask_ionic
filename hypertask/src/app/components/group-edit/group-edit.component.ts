@@ -89,7 +89,7 @@ export class GroupEditComponent implements OnInit, OnDestroy {
       this.currentGroup.Position = 1;
     }
 
-    this.taskTypeValue = this.currentGroup.RecurringDefault === true ? 'Recurring' : 'Once';
+    this.taskTypeValue = this.currentGroup.RecurringDefault === false ? 'Once' : 'Recurring';
   }
 
   ngOnDestroy(): void {

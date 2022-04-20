@@ -871,8 +871,8 @@ export class CalendarTaskService {
       }
 
       if (toUpdateTasks.length > 0) {
-        await this.localDataSync.queueUpdateCalendarTasks(toUpdateTasks.map(p => p.toDTO()), false);
-        this.eventService.emit(new EventData(EventService.EventIds.SyncRequired, null));
+        console.log('ToUpdateGroups');
+        await this.localDataSync.queueUpdateCalendarTasks(toUpdateTasks.map(p => p.toDTO()), false); 
       }
 
       // Remove from groups if voided
@@ -880,6 +880,8 @@ export class CalendarTaskService {
       // const index = this.allGroups.findIndex(p => p.GroupId === group.GroupId);
       // this.allGroups.splice(index, 1);
     }
+
+    this.eventService.emit(new EventData(EventService.EventIds.SyncRequired, null));
 
     this.setGroupsVisible();
 

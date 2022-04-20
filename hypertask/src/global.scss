@@ -154,9 +154,9 @@ app-send-feedback {
 }
 
 .content-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .content-center-right {
@@ -274,7 +274,7 @@ ion-button > ion-label {
 }
 
 .vertical-center {
-  vertical-align: middle;
+  vertical-align: middle !important;
 }
 
 .font-xsmall {

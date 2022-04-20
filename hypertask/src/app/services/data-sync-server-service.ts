@@ -295,8 +295,10 @@ export class DataSyncServerService {
     if (storedGroups != null) {
       const unSyncedGroups = this.getUnsyncedGroups(storedGroups);
 
+      console.log('UNSYNCED GROUPS', unSyncedGroups);
+
       if (unSyncedGroups != null && unSyncedGroups.length > 0) {
-        // this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, SYNC UNSYNCED GROUPS');
+        this.logger.logDebug('%% CHECK FOR UNSYNCHRONIZED, SYNC UNSYNCED GROUPS');
         if (await this.syncUnsyncedGroups(unSyncedGroups) === false) {
           success = false;
         }
@@ -512,6 +514,8 @@ export class DataSyncServerService {
 
   private async syncUnsyncedGroups(unSyncedGroups: DTOTaskGroup[]): Promise<boolean> {
     try {
+      console.log('syncUnsyncedGroups');
+
       this.logger.logEvent('unSyncedGroups', {
         key: 'unSyncedGroups',
         value: JSON.stringify(unSyncedGroups)

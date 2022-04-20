@@ -114,7 +114,6 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
     this.backButtonSubscription = this.platform.backButton.subscribe(async () => {
       await this.closePopup();
     });
-    this.showSingleDay = false;
 
     const todayDate = this.dateService.GetTodayWorkDate();
     const result = this.datepipe.transform(todayDate, 'yyyy-MM-dd');
@@ -403,8 +402,13 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public async recurringChanged(event: any, isOnce: any) {
-    console.log('recurringChanged isOnce', isOnce);
+    if (event != null && event.detail.value == '') {
+      return;
+    }
+
+    console.log('recurringChanged isOnce', event, isOnce);
     if ((event != null && event.detail.value === 'Once') || isOnce === true) {
+      console.log('recurringChanged isOnce true');
       this.showAssignedDate = true;
       this.showReccuringFrequency = false;
       this.showRequiredDays = false;
@@ -416,10 +420,10 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
       const defaultAfterTaskName = this.userService.getConfig(UserConfig.DefaultNonRecurringAfterTaskNameKey);
       await this.changeToDefaultGroup(defaultGroupId, defaultAfterTaskName);
       
-      this.recurringSelected = this.selectedGroup.RecurringDefault === true;
+      this.recurringSelected = this.selectedGroup.RecurringDefault !== false;
       this.onceSelected = this.selectedGroup.RecurringDefault === false;
     } else {
-      console.log('event : ', event);
+      console.log('recurring false value : ', this.recurringValue, isOnce);
       this.showAssignedDate = false;
       this.showReccuringFrequency = true;
       this.showRequiredDays = true;
@@ -430,7 +434,7 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
       const defaultAfterTaskName = this.userService.getConfig(UserConfig.DefaultRecurringAfterTaskNameKey);
       await this.changeToDefaultGroup(defaultGroupId, defaultAfterTaskName);
       
-      this.recurringSelected = this.selectedGroup.RecurringDefault === true;
+      this.recurringSelected = this.selectedGroup.RecurringDefault !== false;
       this.onceSelected = this.selectedGroup.RecurringDefault === false;
     }
   }
@@ -474,8 +478,10 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private setShownComponents() {
+    console.log('setShownComponents', this.currentTask.Frequency);
     this.showRequiredDays = this.currentTask.Frequency === TaskFrequency.Daily;
     this.showAssignedDate = this.currentTask.Frequency !== TaskFrequency.Daily;
+    this.showSingleDay = this.currentTask.Frequency !== TaskFrequency.Daily;;
   }
 
   public async selectPosition() {
@@ -625,7 +631,9 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.preSelectedGroupId != "") {
       this.selectedGroup = this.calendarTaskService.getGroup(this.preSelectedGroupId);
       this.currentTask.GroupId = this.selectedGroup.GroupId;
-      this.recurringValue = this.selectedGroup.RecurringDefault === true ? 'Recurring' : 'Once';
+      console.log('ReccuringDefault : ', this.selectedGroup.RecurringDefault);
+      this.recurringValue = this.selectedGroup.RecurringDefault === false ? 'Once' : 'Recurring';
+      this.currentTask.Frequency = this.selectedGroup.RecurringDefault === false ? TaskFrequency.Once : TaskFrequency.Daily;
       console.log('Sending isone value :', this.selectedGroup.RecurringDefault === false, this.selectedGroup.RecurringDefault);
       this.recurringChanged(null, this.selectedGroup.RecurringDefault === false);
     } else {

@@ -264,7 +264,7 @@ export class ApiService implements IApiService {
     const url = this.getApiUrlCall('api/TaskGroup');
     const headers = await this.getHttpHeaders();
 
-    console.log('UPDATING GROUP API : ', group);
+    console.log('UPDATING GROUP API : ', group, url);
 
     try {
       const groupId = await this.http.put<string>(url, group, { headers }).toPromise();

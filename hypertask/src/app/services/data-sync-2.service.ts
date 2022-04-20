@@ -152,7 +152,7 @@ class NotificationThreadTask implements ThreadTask {
       return true;
     } catch (error) {
       logger.logError(error);
-      alert('Error processing thread task');
+      alert('Error processing thread task 1');
       return false;
     }
   }
@@ -177,7 +177,7 @@ class LocalSyncThreadTask implements ThreadTask {
       return true;
     } catch (error) {
       logger.logError(error);
-      alert('Error processing thread task');
+      alert('Error processing thread task 2');
       return false;
     }
   }
@@ -204,7 +204,7 @@ class ServerSyncThreadTask implements ThreadTask {
       return true;
     } catch (error) {
       logger.logError(error);
-      alert('Error processing thread task');
+      alert('Error processing thread task 3');
       return false;
     }
   }
@@ -230,7 +230,7 @@ class ServerGetLatestSyncThreadTask implements ThreadTask {
       return true;
     } catch (error) {
       logger.logError(error);
-      alert('Error processing thread task');
+      alert('Error processing thread task 4');
       return false;
     }
   }
