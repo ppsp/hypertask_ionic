@@ -80,6 +80,12 @@ export class DataSyncService2 {
 
     if (this.ThreadTasks.some(t => t.name === task.name)) {
       console.log('CANT QUEUE ALREADY EXISTS: ', task.name);
+
+      /*if (task.name === 'Notification') {
+        return;
+      }*/
+
+      return;
     }
 
     // tslint:disable-next-line:prefer-for-of

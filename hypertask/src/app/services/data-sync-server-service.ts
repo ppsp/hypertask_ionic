@@ -760,6 +760,8 @@ export class DataSyncServerService {
                                              lastActivityDate: Date = null,
                                              apiUserConfigs: UserConfig = null): Promise<void> {
     try {
+      console.log("reloading started");
+
       DataSyncServerService.GetLatestStarted = true;
       DataSyncServerService.GetLatestInvalid = false;
 
@@ -778,6 +780,8 @@ export class DataSyncServerService {
         this.logger.logError(new Error('Unable to reload tasks'));
         return throwError('Unable to reload tasks').toPromise();
       }
+
+      console.log("got tasks");
 
       // Check if everything is synced or else abort refresh to avoid conflict
       if (await this.CanEndRefresh() === false) {

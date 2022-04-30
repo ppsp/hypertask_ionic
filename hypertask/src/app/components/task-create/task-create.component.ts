@@ -145,10 +145,10 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     await loading.present();
 
-    if (this.recurringSelected) {
+    if (this.recurringSelected === true) {
       this.currentTask.Frequency = TaskFrequency.Daily;
     } else {
-      if (this.onceSelected) {
+      if (this.onceSelected === true) {
         this.currentTask.Frequency = TaskFrequency.Once;
       } else {
         this.currentTask.Frequency = TaskFrequency.UntilDone;
@@ -421,7 +421,7 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
       await this.changeToDefaultGroup(defaultGroupId, defaultAfterTaskName);
       
       this.recurringSelected = this.selectedGroup.RecurringDefault !== false;
-      this.onceSelected = this.selectedGroup.RecurringDefault === false;
+      //this.onceSelected = this.selectedGroup.RecurringDefault === false;
     } else {
       console.log('recurring false value : ', this.recurringValue, isOnce);
       this.showAssignedDate = false;
@@ -435,7 +435,7 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
       await this.changeToDefaultGroup(defaultGroupId, defaultAfterTaskName);
       
       this.recurringSelected = this.selectedGroup.RecurringDefault !== false;
-      this.onceSelected = this.selectedGroup.RecurringDefault === false;
+      //this.onceSelected = this.selectedGroup.RecurringDefault === false;
     }
   }
 
