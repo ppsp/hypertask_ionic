@@ -212,6 +212,7 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
       if (result === true) {
         await this.modalController.dismiss(true, null, ModalService.ModalIds.CreateTask);
         this.eventService.emit(new EventData(EventService.EventIds.NotificationSyncedFalse, null));
+        this.eventService.emit(new EventData(EventService.EventIds.ProgressBar, true));
       } else {
         this.logger.logError(new Error('Unable to create new task, result is false'));
         alert(this.translate.instant('create-task.saving-error'));
