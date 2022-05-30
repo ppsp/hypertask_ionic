@@ -257,11 +257,14 @@ export class SideMenuComponent implements OnInit, OnDestroy {
     });
     await loading.present();
     const localData = await this.serverDataSync.getUnsynchronized();
-    const queueData = await this.localDataSync.getUnsynchronized();
     await loading.dismiss();
+    alert('LOCAL DATA : ' + localData);
 
     // console.log('LOCAL DATA : ', localData);
-    alert('LOCAL DATA : ' + localData);
+    
+    await loading.present();
+    const queueData = await this.localDataSync.getUnsynchronized();
+    await loading.dismiss();
 
     // console.log('QUEUE DATA : ', queueData);
     alert('QUEUE DATA : ' + queueData);
@@ -295,6 +298,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
   }
 
   private async reloadAllTasks(): Promise<void> {
+    console.log("reloading all tasks from server");
     this.logger.logEvent('reloading all tasks from server');
     try {
       await this.serverDataSync.reloadAllGroupsAndTasksServer(new CancellationToken());

@@ -38,6 +38,14 @@ export class DataSyncService2 {
       this.queueTransaction(new ServerSyncThreadTask());
       this.queueTransaction(new NotificationThreadTask());
     });
+
+    this.eventService.on(EventService.EventIds.OnStartSync, () => {
+      console.log('OnStartSync Required');
+      this.queueTransaction(new ServerGetLatestSyncThreadTask());
+      this.queueTransaction(new LocalSyncThreadTask());
+      this.queueTransaction(new ServerSyncThreadTask());
+      this.queueTransaction(new NotificationThreadTask());
+    });
   }
 
   public async checkForSyncRepeat(): Promise<void> {
@@ -46,9 +54,9 @@ export class DataSyncService2 {
       try {
         if (this.ThreadTasks.length > 0) {
           const initialName = this.ThreadTasks[0].name;
-          console.log('------ PROCESSING THREAD TASK : ' + this.ThreadTasks[0].name, initialName);
+          console.log('------ PROCESSING THREAD TASK : ' + this.ThreadTasks[0].name, initialName, this.ThreadTasks);
           await this.ThreadTasks[0].processTransaction(this.localDataSync, this.serverDataSync, /*this.notificationService, */ this.logger);
-          console.log('++++++ THREAD TASK COMPLETED : ' + this.ThreadTasks[0].name, initialName);
+          console.log('++++++ THREAD TASK COMPLETED : ' + this.ThreadTasks[0].name, initialName, this.ThreadTasks);
           this.ThreadTasks.splice(0, 1);
         } /*else {
           console.log('xxxxxx - NO TASK TO PROCESS - xxxxxx');
@@ -73,14 +81,15 @@ export class DataSyncService2 {
   public queueTransaction(task: ThreadTask) {
     // console.log('queuing Transaction sync 2: ', task.name);
     if (this.ThreadTasks.length === 0) {
-      // console.log('No tasks queued : ', task.name);
+      //console.log('>>>>>>>>>>>>> No tasks queued : ', task.name);
       this.ThreadTasks.push(task);
+      //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
       return;
     }
 
     if (this.ThreadTasks.some(t => t.name === task.name)) {
-      console.log('CANT QUEUE ALREADY EXISTS: ', task.name);
-
+      //console.log('>>>>>>>>>>>>> CANT QUEUE ALREADY EXISTS: ', task.name);
+      //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
       /*if (task.name === 'Notification') {
         return;
       }*/
@@ -91,17 +100,41 @@ export class DataSyncService2 {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.ThreadTasks.length; i++) {
       if (task.priority < this.ThreadTasks[i].priority) {
-        if (this.ThreadTasks[i].isStarted) {
+        //console.log('>>>>>>>>> priority i=' + i + ' ' + task.name + ' < ' + this.ThreadTasks[i].name);
+
+        if (this.ThreadTasks[i].isStarted === true) {
           this.ThreadTasks[i].cancelToken.cancelRequested = true;
+          //console.log('>>>>>>>>>>> Thread already started, requesting cancellation ', this.ThreadTasks[i].name);
         }
 
-        // cant insert at 0
+        // cant insert at 0 (already started)
         if (i === 0 && this.ThreadTasks.length > 0) {
-          // console.log('Inserting at : ', 1, task.name, this.ThreadTasks);
-          this.insertAt(this.ThreadTasks, 1, task);
+          // check if other higher priority
+          if (this.ThreadTasks.length == 1)
+          {
+            //console.log('>>>>>>>>>>> Inserting at : ', 1, task.name, this.ThreadTasks);
+            this.insertAt(this.ThreadTasks, 1, task);
+            //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+          }
+          else {
+            for (let j = 1; j < this.ThreadTasks.length; j++) {
+              if (task.priority < this.ThreadTasks[j].priority) {
+                //console.log('>>>>>>>>>>> Inserting at J : ', j, task.name, this.ThreadTasks);
+                this.insertAt(this.ThreadTasks, j, task);
+                //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+                return;
+              }
+            }
+        
+            //console.log('>>>>>>>>>>>>>> Inserting at the end: ', this.ThreadTasks);
+            this.ThreadTasks.push(task);
+            //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+            return;
+          }
         } else {
-          // console.log('Inserting at : ', i, task.name, this.ThreadTasks);
+          //console.log('>>>>>>>>>>> Inserting at : ', i, task.name, this.ThreadTasks);
           this.insertAt(this.ThreadTasks, i, task);
+          //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
         }
 
         return;
@@ -110,14 +143,16 @@ export class DataSyncService2 {
 
     for (const t of this.ThreadTasks) {
       if (task.priority < t.priority) {
-        // console.log('Inserting before : ', t, this.ThreadTasks);
+        //console.log('>>>>>>>>>>>>> Inserting before : ', t, this.ThreadTasks);
         this.ThreadTasks.unshift(task);
+        //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
         return;
       }
     }
 
-    // console.log('Inserting at the end: ', this.ThreadTasks);
+    //console.log('>>>>>>>>>>>>>> Inserting at the end: ', this.ThreadTasks);
     this.ThreadTasks.push(task);
+    //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
     return;
   }
 

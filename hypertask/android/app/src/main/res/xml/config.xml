@@ -5,6 +5,7 @@
   <feature name="SQLitePlugin">
     <param name="android-package" value="io.sqlc.SQLitePlugin"/>
   </feature>
-
+  <preference name="SplashScreenDelay" value="0"/>
+  <preference name="SplashScreen" value="none" />
   
 </widget>

@@ -132,7 +132,7 @@ export class ApiService implements IApiService {
       this.logger.logError(new Error('insertTaskHistories failed'), { key: 'error', value: JSON.stringify(error)});
 
       if (error.name === 'HttpErrorResponse') {
-        throw new ApiHttpError('Unable to get user from api');
+        throw new ApiHttpError('Unable to insertTaskHistories');
       }
 
       throwError('insertTaskHistories failed');
@@ -199,12 +199,14 @@ export class ApiService implements IApiService {
       }
       return response;
     } catch (error) {
+
+      this.logger.logError(new Error('getUser failed'), { key: 'error', value: JSON.stringify(error)});
+      
       // console.log('ERROR GET USER: ', error);
       if (error.name === 'HttpErrorResponse') {
         throw new ApiHttpError('Unable to get user from api');
       }
 
-      this.logger.logError(new Error('getUser failed'), { key: 'error', value: JSON.stringify(error)});
       throwError('getUser failed').toPromise();
     }
   }

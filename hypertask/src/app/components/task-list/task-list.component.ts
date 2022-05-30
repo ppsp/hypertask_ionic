@@ -144,12 +144,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
       }));
 
       this.eventService.on(EventService.EventIds.SyncRequired, () => {
-        // console.log('[][][][][][][] -  SYNC REQUIRED (RED)  - [][][][][][][]');
+        console.log('[][][][][][][] -  SYNC REQUIRED (RED)  - [][][][][][][]');
         this.colorString = 'color-red';
       });
 
       this.eventService.on(EventService.EventIds.LocalSyncCompleted, () => {
-        // console.log('[][][][][][][] -  SYNC COMPLETED (GREEN)  - [][][][][][][]');
+        console.log('[][][][][][][] -  SYNC COMPLETED (GREEN/ORANGE)  - [][][][][][][]');
         if (this.userService.getConfig(UserConfig.EnableCloudSyncKey) === true) {
           this.colorString = 'color-yellow';
         } else {
@@ -158,7 +158,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
       });
 
       this.eventService.on(EventService.EventIds.ServerSyncCompleted, () => {
-        // console.log('[][][][][][][] -  SYNC COMPLETED (GREEN)  - [][][][][][][]');
+        console.log('[][][][][][][] -  SYNC COMPLETED (GREEN)  - [][][][][][][]');
         this.colorString = 'color-green';
       });
 
@@ -209,7 +209,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
       // DO A SYNC TO SEND MISSING TASKS TO SERVER
       
-      this.eventService.emit(new EventData(EventService.EventIds.SyncRequired, null));
+      this.eventService.emit(new EventData(EventService.EventIds.OnStartSync, null));
+
+      console.log('SYNC REQUIRED END OF LOADING');
 
     } catch (error) {
       this.logger.logError(error);

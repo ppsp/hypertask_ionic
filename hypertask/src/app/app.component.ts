@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@capacitor/splash-screen';
+//import { SplashScreen } from '@capacitor/splash-screen';
 //import { StatusBar, Style } from '@capacitor/status-bar';
 import { AppUpdate } from '@ionic-native/app-update/ngx';
 import { environment } from 'src/environments/environment';
@@ -40,7 +40,7 @@ export class AppComponent {
     this.logger.logDebug('INITIALIZE APP', dateStart.toISOString());
     this.platform.ready().then(() => {
       // this.logger.logDebug('Platform ready ', DateUtils.getTimeSince(dateStart));
-      SplashScreen.hide()
+      //SplashScreen.hide()
       //StatusBar.setStyle() // TODO : CAPACITOR
       //this.statusBar.styleLightContent();
       //this.splashScreen.hide();

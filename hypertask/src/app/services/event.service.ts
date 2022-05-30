@@ -28,6 +28,7 @@ export class EventService {
     public static HideStats = 'HideStats';
     public static SkipAll = 'SkipAll';
     public static SyncRequired = 'SyncRequired';
+    public static OnStartSync = 'OnStartSync';
     public static SkipTask = 'SkipTask';
     public static PostponeTask = 'PostponeTask';
     public static DeleteTask = 'DeleteTask';
