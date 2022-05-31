@@ -128,6 +128,8 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
     this.notificationTimeValue = '12:00';
 
     // console.log('CREATE ON INIT ENDED', new Date().toISOString());
+
+    this.setToLast();
   }
 
   ngOnDestroy(): void {
@@ -241,6 +243,17 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
   public setToFirst(): void {
     this.currentTask.AbsolutePosition = 1;
     this.selectedAfterTask = null;
+  }
+
+  public setToLast(): void {
+    if (this.otherTasks.length == 0) {
+      this.currentTask.AbsolutePosition = 1;
+      this.selectedAfterTask = null;
+    } else {
+      const max = this.otherTasks.reduce((oa, u) => Math.max(oa, u.AbsolutePosition), 0);
+      this.selectedAfterTask = this.otherTasks.filter((oa, u) => oa.AbsolutePosition == max, 0)[0];
+      this.currentTask.AbsolutePosition = max + 1;
+    }
   }
 
   public async closePopup(): Promise<void> {
@@ -521,14 +534,19 @@ export class TaskCreateComponent implements OnInit, OnDestroy, AfterViewInit {
       this.setToFirst();
     };
 
+    const handlerSetAsLast: (alertData: any) => void = (alertData) => {
+      this.setToLast();
+    };
+
     const afterTaskName = this.selectedAfterTask != null ?
                             this.selectedAfterTask.Name :
                             '';
 
-    const alertOptions: AlertOptions = this.alertService.getChangeDefaultAlertOptions(handlerOk,
+    const alertOptions: AlertOptions = this.alertService.getChangePositionAlertOptions(handlerOk,
                                                                                       handlerCancel,
                                                                                       handlerSetAsDefault,
                                                                                       handlerSetAsFirst,
+                                                                                      handlerSetAsLast,
                                                                                       this.otherTasks.map(p => p.Name),
                                                                                       afterTaskName);
     const alert = await this.alertCtrl.create(alertOptions);

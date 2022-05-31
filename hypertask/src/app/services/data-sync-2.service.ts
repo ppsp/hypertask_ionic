@@ -79,17 +79,17 @@ export class DataSyncService2 {
   }
 
   public queueTransaction(task: ThreadTask) {
-    // console.log('queuing Transaction sync 2: ', task.name);
+    this.logger.logDebug('queuing Transaction sync 2: ' + task.name);
     if (this.ThreadTasks.length === 0) {
-      //console.log('>>>>>>>>>>>>> No tasks queued : ', task.name);
+      this.logger.logDebug('>>>>>>>>>>>>> No tasks queued : ', task.name);
       this.ThreadTasks.push(task);
-      //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+      this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
       return;
     }
 
-    if (this.ThreadTasks.some(t => t.name === task.name)) {
-      //console.log('>>>>>>>>>>>>> CANT QUEUE ALREADY EXISTS: ', task.name);
-      //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+    if (this.ThreadTasks.filter((u, i) => i >= 1 || u.isStarted === true).some(t => t.name === task.name)) { // queue if already at [0] and started
+      this.logger.logDebug('>>>>>>>>>>>>> CANT QUEUE ALREADY EXISTS: ' + task.name);
+      this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
       /*if (task.name === 'Notification') {
         return;
       }*/
@@ -100,11 +100,11 @@ export class DataSyncService2 {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.ThreadTasks.length; i++) {
       if (task.priority < this.ThreadTasks[i].priority) {
-        //console.log('>>>>>>>>> priority i=' + i + ' ' + task.name + ' < ' + this.ThreadTasks[i].name);
+        this.logger.logDebug('>>>>>>>>> priority i=' + i + ' ' + task.name + ' < ' + this.ThreadTasks[i].name);
 
         if (this.ThreadTasks[i].isStarted === true) {
           this.ThreadTasks[i].cancelToken.cancelRequested = true;
-          //console.log('>>>>>>>>>>> Thread already started, requesting cancellation ', this.ThreadTasks[i].name);
+          this.logger.logDebug('>>>>>>>>>>> Thread already started, requesting cancellation ' + this.ThreadTasks[i].name);
         }
 
         // cant insert at 0 (already started)
@@ -112,29 +112,29 @@ export class DataSyncService2 {
           // check if other higher priority
           if (this.ThreadTasks.length == 1)
           {
-            //console.log('>>>>>>>>>>> Inserting at : ', 1, task.name, this.ThreadTasks);
+            this.logger.logDebug('>>>>>>>>>>> Inserting at : ' + 1 + ' ' + task.name + ' ' + this.ThreadTasks);
             this.insertAt(this.ThreadTasks, 1, task);
-            //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+            this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
           }
           else {
             for (let j = 1; j < this.ThreadTasks.length; j++) {
               if (task.priority < this.ThreadTasks[j].priority) {
-                //console.log('>>>>>>>>>>> Inserting at J : ', j, task.name, this.ThreadTasks);
+                this.logger.logDebug('>>>>>>>>>>> Inserting at J : ' + j + ' ' + task.name + ' ' + this.ThreadTasks);
                 this.insertAt(this.ThreadTasks, j, task);
-                //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+                this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
                 return;
               }
             }
         
-            //console.log('>>>>>>>>>>>>>> Inserting at the end: ', this.ThreadTasks);
+            this.logger.logDebug('>>>>>>>>>>>>>> Inserting at the end: ' + this.ThreadTasks);
             this.ThreadTasks.push(task);
-            //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+            this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
             return;
           }
         } else {
-          //console.log('>>>>>>>>>>> Inserting at : ', i, task.name, this.ThreadTasks);
+          this.logger.logDebug('>>>>>>>>>>> Inserting at : ' + i + ' ' + task.name + ' ' + this.ThreadTasks);
           this.insertAt(this.ThreadTasks, i, task);
-          //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+          this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
         }
 
         return;
@@ -143,16 +143,16 @@ export class DataSyncService2 {
 
     for (const t of this.ThreadTasks) {
       if (task.priority < t.priority) {
-        //console.log('>>>>>>>>>>>>> Inserting before : ', t, this.ThreadTasks);
+        this.logger.logDebug('>>>>>>>>>>>>> Inserting before : ' + t + ' ' + this.ThreadTasks);
         this.ThreadTasks.unshift(task);
-        //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+        this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
         return;
       }
     }
 
-    //console.log('>>>>>>>>>>>>>> Inserting at the end: ', this.ThreadTasks);
+    this.logger.logDebug('>>>>>>>>>>>>>> Inserting at the end: ' + this.ThreadTasks);
     this.ThreadTasks.push(task);
-    //console.log('>>>>>>>>>>>>> Queue : ', this.ThreadTasks);
+    this.logger.logDebug('>>>>>>>>>>>>> Queue : ' + this.ThreadTasks);
     return;
   }
 
@@ -188,7 +188,7 @@ class NotificationThreadTask implements ThreadTask {
                                   /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
-      console.log('NotificationThreadTask');
+      logger.logDebug('NotificationThreadTask');
       //await notificationService.refreshNotifications(); TODO Capacitor
       return true;
     } catch (error) {
@@ -212,9 +212,9 @@ class LocalSyncThreadTask implements ThreadTask {
                                   /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
-      console.log('LOCALSYNCTHREAD', localDataSync);
+      logger.logDebug('LOCALSYNCTHREAD' + localDataSync);
       await localDataSync.processQueue();
-      // console.log('LOCALSYNCTHREAD DONE');
+      logger.logDebug('LOCALSYNCTHREAD END');
       return true;
     } catch (error) {
       logger.logError(error);
@@ -239,9 +239,9 @@ class ServerSyncThreadTask implements ThreadTask {
                                   /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
-      console.log('SERVERSYNCTHREAD');
+      logger.logDebug('SERVERSYNCTHREAD');
       await serverDataSync.processQueue();
-      console.log('SERVERSYNCTHREAD DONE');
+      logger.logDebug('SERVERSYNCTHREAD DONE');
       return true;
     } catch (error) {
       logger.logError(error);
@@ -265,9 +265,10 @@ class ServerGetLatestSyncThreadTask implements ThreadTask {
                                   /*notificationService: NotificationService,*/
                                   logger: ILogger): Promise<boolean> {
     try {
-      // console.log('LOCALSYNCTHREAD');
+      logger.logDebug('GetLatest');
       // logger.logDebug('SERVERGETLATESTSYNCTHREAD');
       await serverDataSync.GetLatest(this.cancelToken);
+      logger.logDebug('GetLatest END');
       return true;
     } catch (error) {
       logger.logError(error);

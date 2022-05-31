@@ -279,6 +279,7 @@
     "msg-save-confirmation": "Do you want to save?",
     "lbl-default": "Set as default",
     "lbl-first": "Set to first",
+    "lbl-last": "Set to last",
     "msg-timers": "There are still ongoing timers, this will cancel them. Are you sure you want to reload from server ?",
     "btn-save": "Save",
     "msg-confirmation-edit-note": "Edit note",

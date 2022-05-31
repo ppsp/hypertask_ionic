@@ -280,6 +280,7 @@
     "msg-save-confirmation": "Voulez-vous enregistrer?",
     "lbl-default": "Définir comme par défaut",
     "lbl-first": "Mettre en premier",
+    "lbl-last": "Mettre en dernier",
     "msg-timers": "Il y a des timers en cours, ils seront perdus. Êtes-vous sûr que vous voulez rafraîchir à partir du serveur?",
     "btn-save": "Sauvegarder",
     "msg-confirmation-edit-note": "Modification de note",

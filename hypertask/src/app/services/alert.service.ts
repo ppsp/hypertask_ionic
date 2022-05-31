@@ -335,10 +335,11 @@ export class AlertService {
     return options;
   }
 
-  public getChangeDefaultAlertOptions(handlerOk: (alertData: any) => void,
+  public getChangePositionAlertOptions(handlerOk: (alertData: any) => void,
                                       handlerCancel: (alertData: any) => void,
                                       handlerSetAsDefault: (alertData: any) => void,
                                       handlerSetAsFirst: (alertData: any) => void,
+                                      handlerSetAsLast: (alertData: any) => void,
                                       choices: string[],
                                       selected: string): AlertOptions {
     let buttons = [
@@ -349,6 +350,10 @@ export class AlertService {
       {
         text: this.translate.instant('alert.lbl-first'),
         handler: handlerSetAsFirst
+      },
+      {
+        text: this.translate.instant('alert.lbl-last'),
+        handler: handlerSetAsLast
       },
       {
         text: this.translate.instant('alert.lbl-cancel'),

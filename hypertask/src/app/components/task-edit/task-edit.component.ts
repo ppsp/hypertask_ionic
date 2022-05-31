@@ -392,6 +392,17 @@ export class TaskEditComponent implements OnInit, OnDestroy {
     this.currentTask.AbsolutePosition = 1;
     this.selectedAfterTask = null;
   }
+  
+  public setToLast(): void {
+    if (this.otherTasks.length == 0) {
+      this.currentTask.AbsolutePosition = 1;
+      this.selectedAfterTask = null;
+    } else {
+      const max = this.otherTasks.reduce((oa, u) => Math.max(oa, u.AbsolutePosition), 0);
+      this.selectedAfterTask = this.otherTasks.filter((oa, u) => oa.AbsolutePosition == max, 0)[0];
+      this.currentTask.AbsolutePosition = max + 1;
+    }
+  }
 
   public absolutePositionChange(absolutePosition: number) {
     this.currentTask.AbsolutePosition = absolutePosition + 1;
@@ -674,10 +685,15 @@ export class TaskEditComponent implements OnInit, OnDestroy {
       this.setToFirst();
     };
 
-    const alertOptions: AlertOptions = this.alertService.getChangeDefaultAlertOptions(handlerOk,
+    const handlerSetAsLast: (alertData: any) => void = (alertData) => {
+      this.setToLast();
+    };
+
+    const alertOptions: AlertOptions = this.alertService.getChangePositionAlertOptions(handlerOk,
                                                                                       handlerCancel,
                                                                                       handlerSetAsDefault,
                                                                                       handlerSetAsFirst,
+                                                                                      handlerSetAsLast,
                                                                                       this.otherTasks.map(p => p.Name),
                                                                                       this.selectedAfterTask != null ?
                                                                                         this.selectedAfterTask.Name :
