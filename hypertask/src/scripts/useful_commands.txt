@@ -1,17 +1,18 @@
 # RUN ON PHONE
 ionic cordova run android
+ionic capacitor run android
 
 # REINSTALL cordova
 npm uninstall -g cordova
 npm install -g cordova@10.0.0
 
 # REINSTALL ALL PLUGINS
-ionic cordova prepare
+ionic cordova prepare // pu bon
 
 # INSTALL MISSING PACKAGES
 npm install
 
 ## UNINSTALL/INSTALL PLATFORM
-ionic cordova platform remove android
-ionic cordova platform add android
+ionic cordova platform remove android // pu bon
+ionic cordova platform add android // pu bon
 
