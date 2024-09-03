@@ -2,6 +2,7 @@
   
 **Hybrid Mobile App for Managing Tasks and Habits**   
 HyperTask is a productivity app designed to help users manage their tasks and build better habits with an intuitive interface and powerful features.  
+This is a project I did for fun and for using myself.
 
 ## Features  
 Task Management: Create, edit, and organize tasks with ease.  
@@ -9,7 +10,7 @@ Habit Tracking: Track your habits and stay consistent with your goals.
 Cross-Platform: Built using Ionic Framework and Angular, HyperTask runs on both Android and iOS (iOS untested).  
 Backend Powered by ASP.NET Core: Fast and reliable backend built with ASP.NET Core.  
 Cloud Hosted on Azure: Deployment script included for fast setup on Azure.  
-Login Management: Easy and secure logins with Firebase.
+Authentication: Easy and secure logins with Firebase.
 
 ## Screenshots  
 <img src="https://github.com/user-attachments/assets/3147a760-917a-4282-8431-37ecb9f00d4d" width="400"/>  
@@ -27,7 +28,7 @@ Backend: ASP.NET Core (C#)
 Database: MongoDB  
 Hosting: Azure  
 Mobile Deployment: Android (iOS untested)  
-Login: Firebase
+Authentication: Firebase
   
 ## Prerequisites  
 Node.js installed for Ionic  
