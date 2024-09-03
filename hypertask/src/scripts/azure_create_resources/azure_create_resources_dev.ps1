@@ -1,3 +1,7 @@
+# ********************************************************
+# *** This file will not work without secrets-dev.json ***
+# ********************************************************
+
 
 Write-Output "DECLARATIONS"
 $nameSuffix="dev4"

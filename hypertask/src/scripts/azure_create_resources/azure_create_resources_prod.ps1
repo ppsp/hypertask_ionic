@@ -1,3 +1,6 @@
+# ********************************************************
+# *** This file will not work without secrets-prod.json ***
+# ********************************************************
 
 Write-Output "DECLARATIONS"
 $nameSuffix="prod12"

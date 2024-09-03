@@ -1,3 +1,7 @@
+# ************************************************************
+# *** This file will not work without secrets-staging.json ***
+# ************************************************************
+
 
 Write-Output "DECLARATIONS"
 $nameSuffix="stag11"
