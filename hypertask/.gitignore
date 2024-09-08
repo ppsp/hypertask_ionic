@@ -30,10 +30,10 @@ npm-debug.log*
 /platforms
 /plugins
 /www
-/hypertask/src/scripts/ionic_deploy/secrets.json
-/hypertask/src/scripts/azure_create_resources/secrets-prod.json
-/hypertask/src/scripts/azure_create_resources/secrets-staging.json
-/hypertask/src/scripts/azure_create_resources/secrets-dev.json
-/hypertask/src/environments/environment.source.dev.ts
-/hypertask/src/environments/environment.source.prod.ts
-/hypertask/src/environments/environment.source.stating.ts
+*/scripts/ionic_deploy/secrets.json
+*/scripts/azure_create_resources/secrets-prod.json
+*/scripts/azure_create_resources/secrets-staging.json
+*/scripts/azure_create_resources/secrets-dev.json
+*/environments/environment.source.dev.ts
+*/environments/environment.source.prod.ts
+*/environments/environment.source.staging.ts
