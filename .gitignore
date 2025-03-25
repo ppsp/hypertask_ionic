@@ -5,3 +5,4 @@ hypertask/src/environments/environment.source.prod.ts
 hypertask/src/environments/environment.source.staging.ts
 hypertask/src/environments/environment.ts
 .idea/
+android/
